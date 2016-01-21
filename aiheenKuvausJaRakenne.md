@@ -2,4 +2,7 @@
 
 **Käyttäjät** Esim. lautapelien pelaajat eli ihmiset, joilla on tarve kontrolloida ryhmän ajankäyttöä
 
-**Käyttäjän toiminnot** Valittavissa on pelaajien lukumäärä, ajanottotyyli ja ajanmäärä.
+**Käyttäjän toiminnot** 
+* Valittavissa on pelaajien lukumäärä
+* ajanottotyyli
+* ajanmäärä
