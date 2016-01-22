@@ -5,6 +5,8 @@
  */
 package lautapelit.lautapelikello;
 
+
+
 /**
  *
  * @author ekalaja
@@ -15,7 +17,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Timer timer = new Timer(0,3);
+
+        
+        Timer timer = new Timer(5,3);
         timer.startTimer();
     }
     

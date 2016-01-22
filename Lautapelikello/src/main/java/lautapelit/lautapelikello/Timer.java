@@ -61,7 +61,7 @@ public class Timer {
         if (seconds > 0) {
             seconds -= 1;
             try {
-                Thread.sleep(10);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("awakened prematurely");
                 // us = Thread.currentThread();

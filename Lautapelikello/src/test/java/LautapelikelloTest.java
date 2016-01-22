@@ -47,7 +47,6 @@ public class LautapelikelloTest {
      @Test
      public void timerIsCreatedRight() {
          Timer timer = new Timer(3,1);
-         assertEquals("01:03", timer.toString());
-         
+         assertEquals("01:03", timer.toString()); 
      }
 }
