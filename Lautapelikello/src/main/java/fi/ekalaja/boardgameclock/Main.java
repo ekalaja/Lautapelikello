@@ -16,12 +16,14 @@ public class Main {
  
     public static void main(String[] args) {
         
-        System.out.println("toimii");
 
-        ClockGroup clockgroup = new ClockGroup();
-        SwingUtilities.invokeLater(new SwingUi());
-        SimpleTimer timer = new SimpleTimer(5,3);
-        timer.startTimer();
+        ClockGroup clocks = new ClockGroup();
+        clocks.addAClock(3,0);
+        TimeLogic logic = new TimeLogic(clocks.returnList());
+        logic.run();
+//        SwingUtilities.invokeLater(new SwingUi());
+//        SimpleTimer timer = new SimpleTimer(5,3);
+//        timer.startTimer();
     }
     
 }

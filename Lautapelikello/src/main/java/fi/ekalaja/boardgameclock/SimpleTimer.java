@@ -13,25 +13,28 @@ public class SimpleTimer {
 
     private int minutes;
     private int seconds;
-    private boolean clockOn;
+//    private boolean clockOn;
 
-    public SimpleTimer(int seconds, int minutes) {
-        this.clockOn = true;
+    public SimpleTimer(int minutes, int seconds) {
+//        this.clockOn = true;
         this.minutes = minutes;
         this.seconds = seconds;
     }
 
-    public void startTimer() {
-        while (true) {
-            System.out.println(this.toString());
-            if (minutes == 0 && seconds == 0) {
-                System.out.println("loppu");
-                break;
-            }
-            this.timerTicks();
-            
-        }
-    }
+//    public void startTimer() {
+//        while (true) {
+//            System.out.println(this.toString());
+//            if (minutes == 0 && seconds == 0) {
+//                System.out.println("loppu");
+//                break;
+//            }
+//            if (clockOn=false) {
+//                this.pauseMode();
+//            }
+//            this.timerTicks();
+//            
+//        }
+//    }
 
 //    public void printTime() {
 //        if (minutes < 10 && seconds > 9) {
@@ -62,45 +65,45 @@ public class SimpleTimer {
     public void timerTicks() {
         if (seconds > 0) {
             seconds -= 1;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("awakened prematurely");
-                // us = Thread.currentThread();
-                // ...
-                // us.interrupt();
-            }
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                System.out.println("awakened prematurely");
+//                // us = Thread.currentThread();
+//                // ...
+//                // us.interrupt();
+//            }
         } else if (seconds == 0 && minutes > 0) {
             minutes -= 1;
             seconds = 59;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("awakened prematurely");
-            }
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                System.out.println("awakened prematurely");
+//            }
         }
     }
     
-    public void pauseMode() {
-        while (true) {
-            if (clockOn=true) {
-                break;
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e)
-            {
-                System.out.println("awakened prematurely");
-            }            
-        }
-    }
+//    public void pauseMode() {
+//        while (true) {
+//            if (clockOn=true) {
+//                break;
+//            }
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e)
+//            {
+//                System.out.println("awakened prematurely");
+//            }            
+//        }
+//    }
     
-    public void startOrStop() {
-        if (clockOn) {
-            clockOn = false;
-        } else {
-            clockOn = true;
-        }
-    }
+//    public void startOrStop() {
+//        if (clockOn) {
+//            clockOn = false;
+//        } else {
+//            clockOn = true;
+//        }
+//    }
    
 }
