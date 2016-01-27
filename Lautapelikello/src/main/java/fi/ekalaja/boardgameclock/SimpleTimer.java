@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lautapelit.lautapelikello;
+package fi.ekalaja.boardgameclock;
 
 /**
  *
  * @author ekalaja
  */
-public class Timer {
+public class SimpleTimer {
 
     private int minutes;
     private int seconds;
+    private boolean clockOn;
 
-    public Timer(int seconds, int minutes) {
+    public SimpleTimer(int seconds, int minutes) {
+        this.clockOn = true;
         this.minutes = minutes;
         this.seconds = seconds;
     }
@@ -77,8 +79,28 @@ public class Timer {
                 System.out.println("awakened prematurely");
             }
         }
-
     }
     
+    public void pauseMode() {
+        while (true) {
+            if (clockOn=true) {
+                break;
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e)
+            {
+                System.out.println("awakened prematurely");
+            }            
+        }
+    }
+    
+    public void startOrStop() {
+        if (clockOn) {
+            clockOn = false;
+        } else {
+            clockOn = true;
+        }
+    }
    
 }
