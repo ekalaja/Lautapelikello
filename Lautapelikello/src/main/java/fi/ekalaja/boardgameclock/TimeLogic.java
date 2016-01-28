@@ -5,6 +5,7 @@
  */
 package fi.ekalaja.boardgameclock;
 
+import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import java.util.ArrayList;
 
 /**
@@ -15,17 +16,25 @@ public class TimeLogic {
     
     private ArrayList<SimpleTimer> list;
     private boolean nextClock;
-    public TimeLogic(ArrayList<SimpleTimer> list) {
-        this.list = list;
+    private int clockInUse;
+    private SwingUi swingui;
+    
+    public TimeLogic(ArrayList<SimpleTimer> allClocks) {
+        this.swingui = swingui;
+        clockInUse = 0;
+        this.list = allClocks;
         nextClock = false;
-        int listSize = list.size();
+        int listSize = allClocks.size();
     }
 
     public void run() {
-        int clock = 0;
+        
         while (true) {
-            list.get(clock).timerTicks();
-            System.out.println(list.get(clock).toString());
+            list.get(clockInUse).timerTicks();
+            swingui.getFrame().repaint();
+            // tässä kutsutaan repaint
+            
+            System.out.println(list.get(clockInUse).toString());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e)
@@ -33,9 +42,23 @@ public class TimeLogic {
                 System.out.println("awakened prematurely");
             } 
             if (nextClock) {
-                clock++;
+                clockInUse++;
+                this.setNextClockFalse();
+               
             }
         }
+    }
+    
+    public void setSwingUi(SwingUi swingui) {
+        this.swingui = swingui;
+    }
+    
+    public void setNextClockTrue() {
+        this.nextClock = true;
+    }
+    
+    public void setNextClockFalse() {
+        this.nextClock = false;
     }
     
 }

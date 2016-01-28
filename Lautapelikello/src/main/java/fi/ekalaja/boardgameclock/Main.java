@@ -15,12 +15,18 @@ public class Main {
 
  
     public static void main(String[] args) {
-        
-
         ClockGroup clocks = new ClockGroup();
         clocks.addAClock(3,0);
-        TimeLogic logic = new TimeLogic(clocks.returnList());
-        logic.run();
+        SwingUi swingui = new SwingUi(clocks.returnList());
+        swingui.run();
+        //ui.getFrame().repaint();
+        
+        
+//        TimeLogic timelogic = new TimeLogic(clocks.returnList());
+//        timelogic.setSwingUi(swingui);
+//        timelogic.run();
+        
+        
 //        SwingUtilities.invokeLater(new SwingUi());
 //        SimpleTimer timer = new SimpleTimer(5,3);
 //        timer.startTimer();
