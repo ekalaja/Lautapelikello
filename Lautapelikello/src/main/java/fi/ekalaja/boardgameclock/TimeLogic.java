@@ -14,27 +14,28 @@ import java.util.ArrayList;
  */
 public class TimeLogic {
     
-    private ArrayList<SimpleTimer> list;
+    private ArrayList<SimpleTimer> allclocks;
     private boolean nextClock;
     private int clockInUse;
     private SwingUi swingui;
+    private int listSize;
     
-    public TimeLogic(ArrayList<SimpleTimer> allClocks) {
-        this.swingui = swingui;
+    public TimeLogic(ArrayList<SimpleTimer> allclocks) {
+        
         clockInUse = 0;
-        this.list = allClocks;
+        this.allclocks = allclocks;
         nextClock = false;
-        int listSize = allClocks.size();
+        listSize = allclocks.size();
     }
 
     public void run() {
         
         while (true) {
-            list.get(clockInUse).timerTicks();
+            allclocks.get(clockInUse).timerTicks();
             swingui.getFrame().repaint();
             // tässä kutsutaan repaint
             
-            System.out.println(list.get(clockInUse).toString());
+            System.out.println(allclocks.get(clockInUse).toString());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e)
@@ -59,6 +60,14 @@ public class TimeLogic {
     
     public void setNextClockFalse() {
         this.nextClock = false;
+    }
+    
+    public boolean nextClockValue() {
+        return nextClock;
+    }
+    
+    public int numberOfClocks() {
+        return listSize;
     }
     
 }

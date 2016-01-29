@@ -22,9 +22,9 @@ public class Main {
         //ui.getFrame().repaint();
         
         
-//        TimeLogic timelogic = new TimeLogic(clocks.returnList());
-//        timelogic.setSwingUi(swingui);
-//        timelogic.run();
+        TimeLogic timelogic = new TimeLogic(clocks.returnList());
+        timelogic.setSwingUi(swingui);
+        timelogic.run();
         
         
 //        SwingUtilities.invokeLater(new SwingUi());

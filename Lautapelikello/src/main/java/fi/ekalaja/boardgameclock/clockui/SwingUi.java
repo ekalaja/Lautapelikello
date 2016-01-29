@@ -46,6 +46,7 @@ public class SwingUi implements Runnable {
     public void createAllComponents() {
         frame.setLayout(new GridLayout(1,2));
         frame.add(new JButton("next"));
+        frame.add(new JButton("start"));
         
     }
     
