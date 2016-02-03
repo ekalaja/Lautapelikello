@@ -6,3 +6,6 @@
 * Valittavissa on pelaajien lukumäärä
 * ajanottotyyli
 * ajanmäärä
+
+**Luokkakaavio**
+[luokkakaavio](dokumentointi/chart.png)

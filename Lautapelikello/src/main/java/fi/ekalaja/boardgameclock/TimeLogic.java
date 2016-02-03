@@ -13,15 +13,15 @@ import java.util.ArrayList;
  * @author ekalaja
  */
 public class TimeLogic {
-    
+
     private ArrayList<SimpleTimer> allclocks;
     private boolean nextClock;
     private int clockInUse;
-    private SwingUi swingui;
+//    private SwingUi swingui;
     private int listSize;
-    
+
     public TimeLogic(ArrayList<SimpleTimer> allclocks) {
-        
+
         clockInUse = 0;
         this.allclocks = allclocks;
         nextClock = false;
@@ -29,45 +29,49 @@ public class TimeLogic {
     }
 
     public void run() {
-        
+
         while (true) {
-            allclocks.get(clockInUse).timerTicks();
-            swingui.getFrame().repaint();
+            allclocks.get((clockInUse % listSize)).timerTicks();
+            allclocks.get((clockInUse % listSize)).refreshFrameNumbers();
+
+            
             // tässä kutsutaan repaint
             
-            System.out.println(allclocks.get(clockInUse).toString());
+//            System.out.println(allclocks.get(clockInUse).toString());
+            
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e)
-            {
+            } catch (InterruptedException e) {
                 System.out.println("awakened prematurely");
-            } 
+            }
             if (nextClock) {
                 clockInUse++;
                 this.setNextClockFalse();
-               
+
             }
         }
     }
     
-    public void setSwingUi(SwingUi swingui) {
-        this.swingui = swingui;
-    }
     
+
+//    public void setSwingUi(SwingUi swingui) {
+//        this.swingui = swingui;
+//    }
+
     public void setNextClockTrue() {
         this.nextClock = true;
     }
-    
+
     public void setNextClockFalse() {
         this.nextClock = false;
     }
-    
+
     public boolean nextClockValue() {
         return nextClock;
     }
-    
+
     public int numberOfClocks() {
         return listSize;
     }
-    
+
 }

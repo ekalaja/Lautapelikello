@@ -4,7 +4,6 @@ Projektin aiheena lautapelikello, joka yksinkertaisimmillaan on usean pelaajan s
 ##Dokumentaatio
 -	[Lautapelikello](dokumentointi/aiheenKuvausJaRakenne.md)
 -	[tuntikirjanpito](dokumentointi/tuntikirjanpito.md)
--	[pitraportti](dokumentointi/index.html)
 -	[luokkakaavio](dokumentointi/chart.png)
 
 
