@@ -19,10 +19,13 @@ public class PlayersActionListener implements ActionListener {
     
     private TimeLogic timelogic;
     private JButton nextClock;
+    private JButton StartOrPause;
     
-    public PlayersActionListener(JButton nextClock, TimeLogic timelogic) {
+    public PlayersActionListener(JButton nextClock, JButton pause, TimeLogic timelogic) {
         this.timelogic = timelogic;
         this.nextClock = nextClock;
+        this.StartOrPause = pause;
+        
         
     }
 
@@ -30,6 +33,8 @@ public class PlayersActionListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == nextClock) {
             timelogic.setNextClockTrue();
+        } else if (ae.getSource() == StartOrPause) {
+            timelogic.changePauseOnStatus();
         }
     }
     

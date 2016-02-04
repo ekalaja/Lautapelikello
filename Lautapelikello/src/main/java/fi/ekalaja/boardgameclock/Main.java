@@ -26,7 +26,13 @@ public class Main {
 
         timelogic.run();
         
-        
+        // <dependency>
+        //  <groupId>org.assertj</groupId>
+        //  <artifactId>assertj-swing-junit</artifactId>
+        //  <version>3.0.2</version>
+        //  <scope>test</scope>
+        //</dependency>
+        // pom.xml muutos jotta testit toimisi. Tässä vanha
     }
     
 }

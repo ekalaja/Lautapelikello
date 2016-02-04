@@ -19,45 +19,47 @@ public class TimeLogic {
     private int clockInUse;
 //    private SwingUi swingui;
     private int listSize;
+    private boolean pauseOn;
 
     public TimeLogic(ArrayList<SimpleTimer> allclocks) {
 
         clockInUse = 0;
         this.allclocks = allclocks;
         nextClock = false;
+        pauseOn = true;
         listSize = allclocks.size();
+
     }
 
     public void run() {
 
         while (true) {
+            if (pauseOn) {
+                this.pauseMode();
+            }
+            if (nextClock) {
+                clockInUse++;
+                this.setNextClockFalse();
+            }
             allclocks.get((clockInUse % listSize)).timerTicks();
             allclocks.get((clockInUse % listSize)).refreshFrameNumbers();
 
-            
             // tässä kutsutaan repaint
-            
 //            System.out.println(allclocks.get(clockInUse).toString());
-            
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("awakened prematurely");
             }
-            if (nextClock) {
-                clockInUse++;
-                this.setNextClockFalse();
 
-            }
+            
+            
         }
     }
-    
-    
 
 //    public void setSwingUi(SwingUi swingui) {
 //        this.swingui = swingui;
 //    }
-
     public void setNextClockTrue() {
         this.nextClock = true;
     }
@@ -72,6 +74,30 @@ public class TimeLogic {
 
     public int numberOfClocks() {
         return listSize;
+    }
+
+    public void pauseMode() {
+        
+        while (true) {
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("awakened prematurely");
+            }
+            if (pauseOn == false) {
+                break;
+            }
+        }
+    }
+
+    public void changePauseOnStatus() {
+        if (pauseOn == true) {
+            pauseOn = false;
+        } else if (pauseOn == false) {
+            this.pauseOn = true;
+        }
+
     }
 
 }

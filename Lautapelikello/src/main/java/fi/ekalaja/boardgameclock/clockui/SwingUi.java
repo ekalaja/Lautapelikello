@@ -1,9 +1,4 @@
-
 package fi.ekalaja.boardgameclock.clockui;
-
-
-
-
 
 import fi.ekalaja.boardgameclock.SimpleTimer;
 import fi.ekalaja.boardgameclock.TimeLogic;
@@ -18,9 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-
 public class SwingUi implements Runnable {
-    
+
     private JFrame frame;
     private ArrayList<SimpleTimer> allClocks;
     private TimeLogic timelogic;
@@ -29,58 +23,52 @@ public class SwingUi implements Runnable {
         this.allClocks = allClocks;
         this.timelogic = timelogic;
     }
-    
-    
-    
+
     @Override
     public void run() {
         frame = new JFrame("Clocks");
-        frame.setPreferredSize(new Dimension(600,200));
+        frame.setPreferredSize(new Dimension(600, 200));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.createAllComponents();
         // käytä frame.getContentPane() allComponents sisällä
         frame.pack();
         frame.setVisible(true);
     }
-    
+
     public void createAllComponents() {
-        frame.setLayout(new GridLayout(2,1));
-        JPanel panel = new JPanel(new GridLayout(1,0));
+        frame.setLayout(new GridLayout(2, 1));
+        JPanel panelOfClocks = new JPanel(new GridLayout(1, 0));
 
         for (int i = 0; i < this.allClocks.size(); i++) {
             ClockNumberFrame ClockFrame = allClocks.get(i).returnClockNumberFrame();
             Font f = new Font("Greek", 1, 30);
-            
+
             ClockFrame.setFont(f);
-            ClockFrame.setForeground(Color.GREEN);
-//            newClockFrame.set
             ClockFrame.setEnabled(false);
-            panel.add(ClockFrame);
+            panelOfClocks.add(ClockFrame);
         }
-//        panel.setFont(new Font("Greek", 1, 30));
-        frame.add(panel);
-        
-        JButton next = new JButton("next");
-        frame.add(next);
-//        this.addTimeLogic(timelogic);
-        PlayersActionListener userListener = new PlayersActionListener(next, timelogic);
+//        ClockFrame.setForeground(Color.GREEN); ei toimi noin
+//        panel.setFont(new Font("Greek", 1, 30)); eikä näin
+        frame.add(panelOfClocks);
+
+        JButton start = new JButton("Start/Pause");
+        JButton next = new JButton("Next");
+        start.setName("Start/Pause");
+        next.setName("Next");
+
+        PlayersActionListener userListener = new PlayersActionListener(next, start, timelogic);
         next.addActionListener(userListener);
-//        frame.add(new JButton("start"));
-        
+        start.addActionListener(userListener);
+
+        JPanel panelOfButtons = new JPanel(new GridLayout(1, 0));
+        panelOfButtons.add(next);
+        panelOfButtons.add(start);
+        frame.add(panelOfButtons);
+
     }
 
-    
-    
-//    public void addTimeLogic(TimeLogic timelogic) {
-//        this.timelogic = timelogic;
-//    }
-    
-    
     public JFrame getFrame() {
         return frame;
     }
-    
-    
-    
-    
+
 }
