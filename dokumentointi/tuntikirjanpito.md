@@ -10,3 +10,7 @@
 **28.1.2016** Luokkien hiomista. 1,5h
 
 **29.1.2016** Testien tekoa ja Pit opettelua. 4h
+
+**3.2.2016** Ohjelman rakenteen tekemista ja korjaamista. 6h
+
+**4.2.2016** UI testin hahmottelua ja kokeilua. 3h
