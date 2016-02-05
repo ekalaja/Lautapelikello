@@ -9,4 +9,4 @@
 
 **Luokkakaavio**
 
-![kaavio][chart.png]
+![kaavio](chart.png)
