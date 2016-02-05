@@ -9,4 +9,4 @@
 
 **Luokkakaavio**
 
-![kaavio][id]: dokumentointi/chart.png
+![kaavio][dokumentointi/chart.png]
