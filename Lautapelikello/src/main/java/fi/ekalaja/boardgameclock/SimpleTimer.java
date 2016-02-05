@@ -17,11 +17,16 @@ public class SimpleTimer {
     private int seconds;
     private ClockNumberFrame clockframe;
 
-    public SimpleTimer(int minutes, int seconds) {
+    public SimpleTimer(int minutes, int seconds) throws Exception  {
 
+  
+        if (minutes < 0 || seconds < 0) {
+            throw new Exception("Time is not allowed.");
+        } 
         this.minutes = minutes;
-        this.seconds = seconds;
-        this.clockframe = new ClockNumberFrame(this.toString());
+            this.seconds = seconds;
+            this.clockframe = new ClockNumberFrame(this.toString());
+        
     }
 
     @Override

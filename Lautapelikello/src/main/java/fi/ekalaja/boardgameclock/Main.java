@@ -8,24 +8,32 @@ package fi.ekalaja.boardgameclock;
 import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import javax.swing.SwingUtilities;
 
-
-
-
 public class Main {
 
- 
     public static void main(String[] args) {
         ClockGroup clocks = new ClockGroup();
-        clocks.addAClock(3,0);
-        clocks.addAClock(2, 0);
+        try {
+            clocks.addAClock(0, -1);
+            
+        } catch (Exception e) {
+            System.out.println("Use positive time.");
+        }
+        try {
+            clocks.addAClock(2, 2);
+            
+        } catch (Exception e) {
+            System.out.println("Use positive time.");
+        }
+        
+
         TimeLogic timelogic = new TimeLogic(clocks.returnList());
         SwingUi swingui = new SwingUi(clocks.returnList(), timelogic);
-        
+
         swingui.run();
         //ui.getFrame().repaint();
 
         timelogic.run();
-        
+
         // <dependency>
         //  <groupId>org.assertj</groupId>
         //  <artifactId>assertj-swing-junit</artifactId>
@@ -34,5 +42,5 @@ public class Main {
         //</dependency>
         // pom.xml muutos jotta testit toimisi. Tässä vanha
     }
-    
+
 }

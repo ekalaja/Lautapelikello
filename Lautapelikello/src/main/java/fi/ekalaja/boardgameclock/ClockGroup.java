@@ -13,7 +13,12 @@ public class ClockGroup {
     }
     
     public void addAClock(int minutes, int seconds) {
-        listOfClocks.add(new SimpleTimer(minutes, seconds));
+        try {
+            listOfClocks.add(new SimpleTimer(minutes, seconds));
+        } catch (Exception e) {
+            System.out.println("Use positive time.");
+        }
+        
     }
     
     public ArrayList<SimpleTimer> returnList() {
