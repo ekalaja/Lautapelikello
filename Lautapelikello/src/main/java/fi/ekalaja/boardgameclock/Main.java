@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         ClockGroup clocks = new ClockGroup();
         try {
-            clocks.addAClock(0, -1);
+            clocks.addAClock(2,1);
             
         } catch (Exception e) {
             System.out.println("Use positive time.");

@@ -37,26 +37,89 @@ public class TimeLogicTest {
     @Test
     public void testNextClockValue() {
 
-        assertFalse(timelogic.nextClockValue());
+        assertFalse(timelogic.nextClockTruthValue());
     }
 
-
+    @Test
+    public void getClockInUse() {
+        assertEquals(0,timelogic.getClockInUse());
+    }
+    
     @Test
     public void testSetNextClockTrue() {
         timelogic.setNextClockTrue();
-        assertTrue(timelogic.nextClockValue());
+        assertTrue(timelogic.nextClockTruthValue());
     }
     
     @Test
     public void testSetNextClockFalse() {
         timelogic.setNextClockTrue();
         timelogic.setNextClockFalse();
-        assertFalse(timelogic.nextClockValue());
+        assertFalse(timelogic.nextClockTruthValue());
     }
     
     @Test
     public void testNumberOfClocksIsRight() {
-        System.out.println(timelogic.numberOfClocks());
         assertEquals(2,timelogic.numberOfClocks());
     }
+    
+    @Test
+    public void PauseStatusCorrectAfterCreation() {
+        assertTrue(this.timelogic.getPauseOnStatus());
+    }
+    
+    @Test
+    public void testChangePauseOnStatusOnce() {
+        this.timelogic.changePauseOnStatus();
+        assertFalse(this.timelogic.getPauseOnStatus());
+    }
+    
+    @Test
+    public void testChangePauseOnStatusTwice() {
+        this.timelogic.changePauseOnStatus();
+        this.timelogic.changePauseOnStatus();
+        assertTrue(this.timelogic.getPauseOnStatus());
+    }
+    
+    @Test
+    public void testPauseLoopWhileFalse() {
+        // Tests loops ability to finish after false value on PauseOn
+        this.timelogic.changePauseOnStatus();
+        this.timelogic.pauseMode();
+        assertFalse(this.timelogic.getPauseOnStatus());
+    }
+    
+    @Test
+    public void testPauseLoopWhileTrue() {
+        // Tests loops ability to finish after false value on PauseOn
+        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.pauseMode();
+        assertTrue(this.timelogic.getPauseOnStatus());
+    }
+    
+    @Test
+    public void testRunAfterOneCycles() {
+        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.changePauseOnStatus();
+        this.timelogic.run();
+        assertEquals(0,this.timelogic.getClockInUse());
+    }
+    
+    @Test
+    public void testRunAfterOneCycleGoPauseMode() {
+        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.run();
+        assertEquals(0,this.timelogic.getClockInUse());
+    }
+    
+    @Test
+    public void testRunAfterOneCycleChangeToNextClock() {
+        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.setNextClockTrue();
+        this.timelogic.run();
+        assertEquals(1,this.timelogic.getClockInUse());
+    }
+    
+    
+    
 }

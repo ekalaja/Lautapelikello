@@ -17,16 +17,15 @@ public class SimpleTimer {
     private int seconds;
     private ClockNumberFrame clockframe;
 
-    public SimpleTimer(int minutes, int seconds) throws Exception  {
+    public SimpleTimer(int minutes, int seconds) throws Exception {
 
-  
         if (minutes < 0 || seconds < 0) {
             throw new Exception("Time is not allowed.");
-        } 
+        }
         this.minutes = minutes;
-            this.seconds = seconds;
-            this.clockframe = new ClockNumberFrame(this.toString());
-        
+        this.seconds = seconds;
+        this.clockframe = new ClockNumberFrame(this.toString());
+
     }
 
     @Override
@@ -37,10 +36,13 @@ public class SimpleTimer {
             return minutes + ":" + "0" + seconds;
         } else if (minutes > 9 && seconds > 9) {
             return minutes + ":" + seconds;
-        } else if (minutes < 10 && seconds < 10) {
+//        } else if (minutes < 10 && seconds < 10) {
+//            return "0" + minutes + ":" + "0" + seconds;
+        } else {
             return "0" + minutes + ":" + "0" + seconds;
+//        }
+//        return "Problem with returning time value.";
         }
-        return "Problem with returning time value.";
     }
 
     public void timerTicks() {
@@ -53,14 +55,13 @@ public class SimpleTimer {
 
         }
     }
-    
+
     public void refreshFrameNumbers() {
         this.clockframe.setText(this.toString());
     }
-    
+
     public ClockNumberFrame returnClockNumberFrame() {
         return this.clockframe;
     }
 
-   
 }

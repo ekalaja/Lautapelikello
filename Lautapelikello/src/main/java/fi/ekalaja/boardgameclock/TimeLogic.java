@@ -20,6 +20,7 @@ public class TimeLogic {
 //    private SwingUi swingui;
     private int listSize;
     private boolean pauseOn;
+    private boolean stopEverythingTestUse;
 
     public TimeLogic(ArrayList<SimpleTimer> allclocks) {
 
@@ -28,6 +29,7 @@ public class TimeLogic {
         nextClock = false;
         pauseOn = true;
         listSize = allclocks.size();
+        this.stopEverythingTestUse = false;
 
     }
 
@@ -44,22 +46,25 @@ public class TimeLogic {
             allclocks.get((clockInUse % listSize)).timerTicks();
             allclocks.get((clockInUse % listSize)).refreshFrameNumbers();
 
-            // tässä kutsutaan repaint
-//            System.out.println(allclocks.get(clockInUse).toString());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("awakened prematurely");
             }
-
-            
-            
+            if (stopEverythingTestUse) {
+                break;
+            }
         }
     }
+    
 
 //    public void setSwingUi(SwingUi swingui) {
 //        this.swingui = swingui;
 //    }
+    public int getClockInUse() {
+        return this.clockInUse;
+    }
+    
     public void setNextClockTrue() {
         this.nextClock = true;
     }
@@ -68,7 +73,7 @@ public class TimeLogic {
         this.nextClock = false;
     }
 
-    public boolean nextClockValue() {
+    public boolean nextClockTruthValue() {
         return nextClock;
     }
 
@@ -87,6 +92,8 @@ public class TimeLogic {
             }
             if (pauseOn == false) {
                 break;
+            } else if (this.stopEverythingTestUse) {
+                break;
             }
         }
     }
@@ -97,7 +104,14 @@ public class TimeLogic {
         } else if (pauseOn == false) {
             this.pauseOn = true;
         }
-
+    }
+    
+    public boolean getPauseOnStatus() {
+        return this.pauseOn;
+    }
+    
+    public void forTestingActivateStopEverything() {
+        this.stopEverythingTestUse = true;
     }
 
 }

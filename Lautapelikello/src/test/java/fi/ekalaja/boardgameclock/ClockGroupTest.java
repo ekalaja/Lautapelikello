@@ -47,15 +47,28 @@ public class ClockGroupTest {
         assertEquals(0,clockgroup.returnList().size());
     }
     
+//    @Test
+//    public void testIfIllegalClockCanBeCreated() {
+//        try {
+//            clockgroup.addAClock(0,-5);
+//            assertEquals(0,clockgroup.returnList().size());
+//        } catch (Exception e) {
+//            fail("illegal clock created?");
+//        }
+//    }
+    
     @Test
-    public void testIllegalValuesForClock() {
-        try {
+    public void testIfIllegalClockCanBeCreated() {
             clockgroup.addAClock(0,-5);
-            fail("illegal clock was created");
-        } catch (Exception e) {
-            String errorMsg = "fail";
-            assertEquals("fail", errorMsg);
-        }
+            assertEquals(0,clockgroup.returnList().size());
     }
+    
+//    @Test
+//    public void testIfIllegalClockCreationReportsRight() {
+//            clockgroup.addAClock(0,-5);
+//            
+//    }
+    
+    
     
 }

@@ -16,7 +16,8 @@ public class ClockGroup {
         try {
             listOfClocks.add(new SimpleTimer(minutes, seconds));
         } catch (Exception e) {
-            System.out.println("Use positive time.");
+//            String report = "Use positive time.";
+//            System.out.println(report);
         }
         
     }
