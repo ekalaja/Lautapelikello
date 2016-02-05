@@ -8,4 +8,5 @@
 * ajanmäärä
 
 **Luokkakaavio**
-![Alt text](dokumentaatio/chart.png)
+
+![kaavio][id]: dokumentointi/chart.png
