@@ -14,3 +14,5 @@
 **3.2.2016** Ohjelman rakenteen tekemista ja korjaamista. 6h
 
 **4.2.2016** UI testin hahmottelua ja kokeilua. 3h
+
+**5.2.2016** Testien tekoa ja luokkakaavion päivitys. 5h
