@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author ekalaja
  */
-public class TimeLogic {
+public class TimeLogic implements Runnable {
 
     private ArrayList<SimpleTimer> allclocks;
     private boolean nextClock;
@@ -34,9 +34,10 @@ public class TimeLogic {
     }
 
     public void run() {
-
+        
         while (true) {
             if (pauseOn) {
+                System.out.println(this.toString());
                 this.pauseMode();
             }
             if (nextClock) {
@@ -54,6 +55,7 @@ public class TimeLogic {
             if (stopEverythingTestUse) {
                 break;
             }
+//            System.out.println("paasi loppuun");
         }
     }
     

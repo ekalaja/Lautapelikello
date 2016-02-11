@@ -7,6 +7,7 @@ package fi.ekalaja.boardgameclock.actionlistener;
 
 import fi.ekalaja.boardgameclock.ClockGroup;
 import fi.ekalaja.boardgameclock.TimeLogic;
+import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -18,45 +19,55 @@ import javax.swing.JTextField;
  * @author ekalaja
  */
 public class SetupActionListener implements ActionListener {
-    private final JButton begin;
-    private final JTextField numberOfClocks;
-    private final JTextField additionalTime;
+
+    private JButton begin;
+    private JTextField numberOfClocks;
+    private JTextField givenMinutes;
+    private JTextField givenSeconds;
     private ClockGroup clocks;
+    private TimeLogic timelogic;
+    private final SwingUi swingui;
 
-
-
-    public SetupActionListener(JButton begin, JTextField numberOfClocks, JTextField additionalTime, TimeLogic timelogic) {
+    public SetupActionListener(JButton begin, JTextField numberOfClocks, JTextField givenMinutes, JTextField givenSeconds, SwingUi swingui) {
+        this.swingui = swingui;
         this.begin = begin;
+
         this.numberOfClocks = numberOfClocks;
-        this.additionalTime = additionalTime;
+        this.givenMinutes = givenMinutes;
+        this.givenSeconds = givenSeconds;
     }
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         int value = 0;
-        int time = 0;
-        
-        try{
+        int minutes = 0;
+        int seconds = 0;
+
+        try {
             value = Integer.parseInt(numberOfClocks.getText());
-            time = Integer.parseInt(numberOfClocks.getText());
-        } catch (Exception e) {         
-        } 
+            minutes = Integer.parseInt(givenMinutes.getText());
+            seconds = Integer.parseInt(givenSeconds.getText());
+        } catch (Exception e) {
+            System.out.println("virhe");
+        }
         if (ae.getSource() == begin) {
-            if (value > 0 ) {
-                this.createClocks(value, time);
-            }
+            this.createClocksAndTimeLogic(value, minutes, seconds);
+
         }
     }
-    
-    public ClockGroup createClocks(int arvo, int minutes) {
+
+    public void createClocksAndTimeLogic(int arvo, int minutes, int seconds) {
         clocks = new ClockGroup();
-//        for (int i = 0; i < arvo; i++) {
-//            try {
-//                clocks.addAClock(i, minutes);
-//            }
-//        }
-        return clocks;
+        for (int i = 0; i < arvo; i++) {
+            try {
+                clocks.addAClock(minutes, seconds);
+            } catch (Exception e) {
+            }
+            timelogic = new TimeLogic(clocks.returnList());
+            swingui.addTimeLogicAndClocks(timelogic, clocks.returnList());
+            swingui.createCardTwo();
+        }
+
     }
-    
+
 }

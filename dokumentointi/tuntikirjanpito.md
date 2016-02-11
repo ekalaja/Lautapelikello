@@ -16,3 +16,7 @@
 **4.2.2016** UI testin hahmottelua ja kokeilua. 3h
 
 **5.2.2016** Testien tekoa ja luokkakaavion päivitys. 5h
+
+**10.2.2016** UI rakenteen suunnittelua ja harjoittelua. 6h
+
+**11.2.2016** suuria muutoksia toiminnassa. 6h

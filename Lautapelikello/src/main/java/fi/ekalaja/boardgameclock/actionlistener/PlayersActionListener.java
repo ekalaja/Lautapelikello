@@ -35,6 +35,7 @@ public class PlayersActionListener implements ActionListener {
             timelogic.setNextClockTrue();
         } else if (ae.getSource() == StartOrPause) {
             timelogic.changePauseOnStatus();
+//            new Thread(timelogic).start();
         }
     }
     

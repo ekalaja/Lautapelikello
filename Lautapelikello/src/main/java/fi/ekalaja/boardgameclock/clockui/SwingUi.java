@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-
 public class SwingUi implements Runnable, ItemListener {
 
 //    private JPanel cardLayoutPanel;
@@ -32,17 +31,18 @@ public class SwingUi implements Runnable, ItemListener {
     private TimeLogic timelogic;
     private JPanel cards;
     private JTextField numberOfClocks;
-    
+
     final static String CLOCKSPANEL = "CLOCKS";
     final static String SETUPPANEL = "SETUP";
 
-    public SwingUi(ArrayList<SimpleTimer> allClocks, TimeLogic timelogic) {
-        this.allClocks = allClocks;
-        this.timelogic = timelogic;
-    }
+
+//    public SwingUi(ArrayList<SimpleTimer> allClocks, TimeLogic timelogic) {
+//        this.allClocks = allClocks;
+//        this.timelogic = timelogic;
+//    }
 
     @Override
-    public void run() {       
+    public void run() {
 
         frame = new JFrame("Clocks");
         frame.setPreferredSize(new Dimension(600, 200));
@@ -50,67 +50,71 @@ public class SwingUi implements Runnable, ItemListener {
         this.createAllComponents(frame.getContentPane());
         frame.pack();
         frame.setVisible(true);
-        
+
 //        cardLayoutPanel.add(frame);
     }
 
     public void createAllComponents(Container pane) {
 
         JPanel comboBoxPane = new JPanel();
-        String comboBoxItems[]  = { SETUPPANEL, CLOCKSPANEL};
+        String comboBoxItems[] = {SETUPPANEL, CLOCKSPANEL};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
         comboBoxPane.add(cb);
-        
+
         cards = new JPanel(new CardLayout());
         cards.add(this.createCardOne(), SETUPPANEL);
-        cards.add(this.createCardTwo(), CLOCKSPANEL);
         
-        
+
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
     }
-    
+
     public JPanel createCardOne() {
         Font f = new Font("Greek", 1, 20);
-        
-        JPanel card1 = new JPanel(new GridLayout(2,1));
-        JPanel panelOfTextFields = new JPanel(new GridLayout(2,2));
-        
+
+        JPanel card1 = new JPanel(new GridLayout(2, 1));
+        JPanel panelOfTextFields = new JPanel(new GridLayout(2, 3));
+
         JLabel playerNumberInfo = new JLabel("Number of players:");
         playerNumberInfo.setFont(f);
         playerNumberInfo.setEnabled(false);
-        
-        JLabel plusTimeInfo = new JLabel("Additional time/move in seconds");
 
-        numberOfClocks = new JTextField("Insert number of players.");
-        JTextField additionalTime = new JTextField("0");
+        JLabel minutesInfo = new JLabel("Insert minutes");
+        JLabel secondsInfo = new JLabel("Insert minutes");
         
+        numberOfClocks = new JTextField("2");
+        JTextField givenMinutes = new JTextField("5");
+        JTextField givenSeconds = new JTextField("0");
+
         JButton begin = new JButton("Begin");
-        
-        SetupActionListener setupListener = new SetupActionListener(begin, numberOfClocks, additionalTime, timelogic);
+
+        SetupActionListener setupListener = new SetupActionListener(begin, numberOfClocks, givenMinutes, givenSeconds, this);
+        begin.addActionListener(setupListener);
         
         panelOfTextFields.add(playerNumberInfo);
-        panelOfTextFields.add(plusTimeInfo);
+        panelOfTextFields.add(minutesInfo);
+        panelOfTextFields.add(secondsInfo);
         panelOfTextFields.add(numberOfClocks);
-        panelOfTextFields.add(additionalTime);
+        panelOfTextFields.add(givenMinutes);
+        panelOfTextFields.add(givenSeconds);
 
         card1.add(panelOfTextFields);
-        
-        
-        JPanel setupButtonsPanel = new JPanel();
-        
-        
+
+        JPanel setupButtonsPanel = new JPanel(new GridLayout(1,0));
+        setupButtonsPanel.add(begin);
+        card1.add(setupButtonsPanel);
+
         return card1;
     }
-    
-    
-    public JPanel createCardTwo() {
-        JPanel card2 = new JPanel(new GridLayout(2,1));
-        JPanel panelOfClocks = new JPanel(new GridLayout(1, 0));
 
-        for (int i = 0; i < this.allClocks.size(); i++) {
+    public void createCardTwo() {
+        JPanel card2 = new JPanel(new GridLayout(2, 1));
+        JPanel panelOfClocks = new JPanel(new GridLayout(1, 0));
+        
+        
+        for (int i = 0; i < allClocks.size(); i++) {
             ClockNumberFrame ClockFrame = allClocks.get(i).returnClockNumberFrame();
             Font f = new Font("Greek", 1, 30);
 
@@ -118,7 +122,7 @@ public class SwingUi implements Runnable, ItemListener {
             ClockFrame.setEnabled(false);
             panelOfClocks.add(ClockFrame);
         }
-        
+
         JButton start = new JButton("Start/Pause");
         JButton next = new JButton("Next");
         start.setName("Start/Pause");
@@ -127,26 +131,40 @@ public class SwingUi implements Runnable, ItemListener {
         PlayersActionListener userListener = new PlayersActionListener(next, start, timelogic);
         next.addActionListener(userListener);
         start.addActionListener(userListener);
-        
+
         JPanel panelOfButtons = new JPanel(new GridLayout(1, 0));
         panelOfButtons.add(next);
         panelOfButtons.add(start);
-        
+
         card2.add(panelOfButtons);
         card2.add(panelOfClocks);
+        new Thread(timelogic).start();
+
+//        return card2;
+
+        cards.add(card2, CLOCKSPANEL);
+        frame.getContentPane().add(cards);
         
-        return card2;
+        
+//        frame.pack();
+//        frame.repaint();
     }
-    
+
     @Override
     public void itemStateChanged(ItemEvent evt) {
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, (String)evt.getItem());
+        CardLayout cl = (CardLayout) (cards.getLayout());
+        cl.show(cards, (String) evt.getItem());
+    }
+
+    
+    public void addTimeLogicAndClocks(TimeLogic timelogic, ArrayList allClocks) {
+        this.timelogic = timelogic;
+        this.allClocks = allClocks;
+        
     }
 
     public JFrame getFrame() {
         return frame;
     }
-    
 
 }
