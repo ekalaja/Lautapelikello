@@ -3,6 +3,7 @@ package fi.ekalaja.boardgameclock.clockui;
 import fi.ekalaja.boardgameclock.SimpleTimer;
 import fi.ekalaja.boardgameclock.TimeLogic;
 import fi.ekalaja.boardgameclock.actionlistener.PlayersActionListener;
+import fi.ekalaja.boardgameclock.actionlistener.SetupActionListener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 
@@ -28,6 +31,8 @@ public class SwingUi implements Runnable, ItemListener {
     private ArrayList<SimpleTimer> allClocks;
     private TimeLogic timelogic;
     private JPanel cards;
+    private JTextField numberOfClocks;
+    
     final static String CLOCKSPANEL = "CLOCKS";
     final static String SETUPPANEL = "SETUP";
 
@@ -52,16 +57,56 @@ public class SwingUi implements Runnable, ItemListener {
     public void createAllComponents(Container pane) {
 
         JPanel comboBoxPane = new JPanel();
-        String comboBoxItems[]  = { CLOCKSPANEL, SETUPPANEL};
+        String comboBoxItems[]  = { SETUPPANEL, CLOCKSPANEL};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
-//        cb.addItemListener(null);
         comboBoxPane.add(cb);
-        JPanel card1 = new JPanel();
-        // lisätään setup toiminnallisuudet card1:seen.
+        
+        cards = new JPanel(new CardLayout());
+        cards.add(this.createCardOne(), SETUPPANEL);
+        cards.add(this.createCardTwo(), CLOCKSPANEL);
         
         
+        pane.add(comboBoxPane, BorderLayout.PAGE_START);
+        pane.add(cards, BorderLayout.CENTER);
+    }
+    
+    public JPanel createCardOne() {
+        Font f = new Font("Greek", 1, 20);
+        
+        JPanel card1 = new JPanel(new GridLayout(2,1));
+        JPanel panelOfTextFields = new JPanel(new GridLayout(2,2));
+        
+        JLabel playerNumberInfo = new JLabel("Number of players:");
+        playerNumberInfo.setFont(f);
+        playerNumberInfo.setEnabled(false);
+        
+        JLabel plusTimeInfo = new JLabel("Additional time/move in seconds");
+
+        numberOfClocks = new JTextField("Insert number of players.");
+        JTextField additionalTime = new JTextField("0");
+        
+        JButton begin = new JButton("Begin");
+        
+        SetupActionListener setupListener = new SetupActionListener(begin, numberOfClocks, additionalTime, timelogic);
+        
+        panelOfTextFields.add(playerNumberInfo);
+        panelOfTextFields.add(plusTimeInfo);
+        panelOfTextFields.add(numberOfClocks);
+        panelOfTextFields.add(additionalTime);
+
+        card1.add(panelOfTextFields);
+        
+        
+        JPanel setupButtonsPanel = new JPanel();
+        
+        
+        return card1;
+    }
+    
+    
+    public JPanel createCardTwo() {
         JPanel card2 = new JPanel(new GridLayout(2,1));
         JPanel panelOfClocks = new JPanel(new GridLayout(1, 0));
 
@@ -89,20 +134,11 @@ public class SwingUi implements Runnable, ItemListener {
         
         card2.add(panelOfButtons);
         card2.add(panelOfClocks);
-//        frame.add(panelOfButtons);
         
-        
-        cards = new JPanel(new CardLayout());
-        cards.add(card2, CLOCKSPANEL);
-        cards.add(card1, SETUPPANEL);
-        
-        pane.add(comboBoxPane, BorderLayout.PAGE_START);
-        pane.add(cards, BorderLayout.CENTER);
-//        frame.setLayout(new GridLayout(2, 1)); oli ennen
-//        frame.add(panelOfClocks);
-
+        return card2;
     }
     
+    @Override
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, (String)evt.getItem());
