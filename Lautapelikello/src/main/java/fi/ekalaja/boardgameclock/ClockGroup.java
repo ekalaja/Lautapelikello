@@ -1,3 +1,6 @@
+/**
+* This class creates an ArrayList of SimpleTimers.
+*/
 package fi.ekalaja.boardgameclock;
 
 import java.util.ArrayList;
@@ -12,16 +15,23 @@ public class ClockGroup {
         
     }
     
+    /**
+     * 
+     * @param minutes   is given in the setup UI for every SimpleTimer.
+     * @param seconds   is given in the setup UI for every SimpleTimer.
+     */
     public void addAClock(int minutes, int seconds) {
         try {
             listOfClocks.add(new SimpleTimer(minutes, seconds));
         } catch (Exception e) {
-//            String report = "Use positive time.";
-//            System.out.println(report);
+            System.out.println("Use positive time.");
         }
-        
     }
     
+    /**
+     * 
+     * @return  returns a list of SimpleTimers.
+     */
     public ArrayList<SimpleTimer> returnList() {
         return this.listOfClocks;
     }

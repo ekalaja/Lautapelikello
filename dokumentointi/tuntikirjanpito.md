@@ -20,3 +20,6 @@
 **10.2.2016** UI rakenteen suunnittelua ja harjoittelua. 6h
 
 **11.2.2016** suuria muutoksia toiminnassa. 6h
+
+**12.2.2016** Raporttien tekoa, testien pohtimista ja javadoc hassuttelua. 6h
+

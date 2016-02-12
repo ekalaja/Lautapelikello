@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* TimeLogic is responsible for counting down the time in the SimpleTimers.
+* 
+*/
 package fi.ekalaja.boardgameclock;
 
 import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import java.util.ArrayList;
 
-/**
- *
- * @author ekalaja
- */
 public class TimeLogic implements Runnable {
 
     private ArrayList<SimpleTimer> allclocks;
@@ -32,12 +27,15 @@ public class TimeLogic implements Runnable {
         this.stopEverythingTestUse = false;
 
     }
-
+/**
+ * This is where the magic happens. TimeLogic's run is the method responsible
+ * for counting of the used time. It also makes sure the right clock is in use
+ * and checks if user has pushed new buttons.
+ */
     public void run() {
         
         while (true) {
             if (pauseOn) {
-                System.out.println(this.toString());
                 this.pauseMode();
             }
             if (nextClock) {
@@ -82,7 +80,9 @@ public class TimeLogic implements Runnable {
     public int numberOfClocks() {
         return listSize;
     }
-
+/**
+ * pauseMode is activated when the clocks are created and when ever user pushes pause.
+ */
     public void pauseMode() {
         
         while (true) {
@@ -99,7 +99,9 @@ public class TimeLogic implements Runnable {
             }
         }
     }
-
+/**
+ * This enables changes in the run method so TimeLogic can enter pauseMode.
+ */
     public void changePauseOnStatus() {
         if (pauseOn == true) {
             pauseOn = false;
@@ -111,7 +113,10 @@ public class TimeLogic implements Runnable {
     public boolean getPauseOnStatus() {
         return this.pauseOn;
     }
-    
+    /**
+     * this method is only for test use. I may extend it's usage for other
+     * purposes also.
+     */
     public void forTestingActivateStopEverything() {
         this.stopEverythingTestUse = true;
     }

@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* This class is an ActionListener for the buttons and TextFields
+* of the Setup card.
+
+*/
 package fi.ekalaja.boardgameclock.actionlistener;
 
 import fi.ekalaja.boardgameclock.ClockGroup;
@@ -14,10 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author ekalaja
- */
 public class SetupActionListener implements ActionListener {
 
     private JButton begin;
@@ -31,7 +27,6 @@ public class SetupActionListener implements ActionListener {
     public SetupActionListener(JButton begin, JTextField numberOfClocks, JTextField givenMinutes, JTextField givenSeconds, SwingUi swingui) {
         this.swingui = swingui;
         this.begin = begin;
-
         this.numberOfClocks = numberOfClocks;
         this.givenMinutes = givenMinutes;
         this.givenSeconds = givenSeconds;
@@ -47,26 +42,25 @@ public class SetupActionListener implements ActionListener {
             value = Integer.parseInt(numberOfClocks.getText());
             minutes = Integer.parseInt(givenMinutes.getText());
             seconds = Integer.parseInt(givenSeconds.getText());
+            if (ae.getSource() == begin) {
+                this.createClocksAndTimeLogic(value, minutes, seconds);
+            }
         } catch (Exception e) {
             System.out.println("virhe");
         }
-        if (ae.getSource() == begin) {
-            this.createClocksAndTimeLogic(value, minutes, seconds);
 
-        }
     }
 
     public void createClocksAndTimeLogic(int arvo, int minutes, int seconds) {
         clocks = new ClockGroup();
+
         for (int i = 0; i < arvo; i++) {
-            try {
-                clocks.addAClock(minutes, seconds);
-            } catch (Exception e) {
-            }
-            timelogic = new TimeLogic(clocks.returnList());
-            swingui.addTimeLogicAndClocks(timelogic, clocks.returnList());
-            swingui.createCardTwo();
+            clocks.addAClock(minutes, seconds);
         }
+
+        timelogic = new TimeLogic(clocks.returnList());
+        swingui.addTimeLogicAndClocks(timelogic, clocks.returnList());
+        swingui.createCardTwo();
 
     }
 
