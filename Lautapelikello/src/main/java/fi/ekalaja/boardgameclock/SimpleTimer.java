@@ -35,12 +35,8 @@ public class SimpleTimer {
             return minutes + ":" + "0" + seconds;
         } else if (minutes > 9 && seconds > 9) {
             return minutes + ":" + seconds;
-//        } else if (minutes < 10 && seconds < 10) {
-//            return "0" + minutes + ":" + "0" + seconds;
         } else {
             return "0" + minutes + ":" + "0" + seconds;
-//        }
-//        return "Problem with returning time value.";
         }
     }
 /**

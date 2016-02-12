@@ -122,7 +122,6 @@ public class SwingUi implements Runnable, ItemListener {
         new Thread(timelogic).start();
         cards.add(card2, CLOCKSPANEL);
         frame.getContentPane().add(cards);
-//        this.itemStateChanged(null);
     }
 
     @Override
