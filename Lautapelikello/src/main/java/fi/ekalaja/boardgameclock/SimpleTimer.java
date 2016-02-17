@@ -52,6 +52,16 @@ public class SimpleTimer {
 
         }
     }
+    
+    public void addAQuarterMinute() {
+        if (this.seconds < 45) {
+            this.seconds+=15;
+        } else {
+            int change = 60 - this.seconds;
+            this.seconds = 15 - change;
+            this.minutes+= 1;
+        }
+    }
 /**
  * This method sets updated values for the ClockFrame.
  */
@@ -64,6 +74,16 @@ public class SimpleTimer {
  */
     public ClockNumberFrame returnClockNumberFrame() {
         return this.clockframe;
+    }
+
+    public void reduceAQuarterMinute() {
+        if (this.seconds > 14) {
+            this.seconds-= 15;
+        } else {
+            int change = 15 - this.seconds;
+            this.seconds = 60 - change;
+            this.minutes-= 1;
+        }
     }
 
 }

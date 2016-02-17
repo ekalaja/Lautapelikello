@@ -6,6 +6,7 @@ package fi.ekalaja.boardgameclock;
 
 import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TimeLogic implements Runnable {
 
@@ -33,6 +34,10 @@ public class TimeLogic implements Runnable {
  * and checks if user has pushed new buttons.
  */
     public void run() {
+//        Date  date = new Date();
+//        int deltaTime = 0;
+//        long currentTime = date.getTime();
+        
         
         while (true) {
             if (pauseOn) {

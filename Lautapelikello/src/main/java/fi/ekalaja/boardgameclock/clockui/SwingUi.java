@@ -1,14 +1,16 @@
 /**
-* This is user interface.
-*/
+ * This is user interface.
+ */
 package fi.ekalaja.boardgameclock.clockui;
 
 import fi.ekalaja.boardgameclock.SimpleTimer;
 import fi.ekalaja.boardgameclock.TimeLogic;
 import fi.ekalaja.boardgameclock.actionlistener.PlayersActionListener;
 import fi.ekalaja.boardgameclock.actionlistener.SetupActionListener;
+import fi.ekalaja.boardgameclock.actionlistener.TimerSpecificListener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -92,12 +94,15 @@ public class SwingUi implements Runnable, ItemListener {
     }
 
     public void createCardTwo() {
-        JPanel card2 = new JPanel(new GridLayout(2, 1));
+        JPanel card2 = new JPanel(new GridLayout(3, 1));
         JPanel panelOfClocks = new JPanel(new GridLayout(1, 0));
 
         for (int i = 0; i < allClocks.size(); i++) {
             ClockNumberFrame clockFrame = allClocks.get(i).returnClockNumberFrame();
+            clockFrame.setOpaque(true);
+            clockFrame.setForeground(Color.red);
             Font f = new Font("Greek", 1, 30);
+            
 
             clockFrame.setFont(f);
             clockFrame.setEnabled(false);
@@ -109,16 +114,39 @@ public class SwingUi implements Runnable, ItemListener {
         start.setName("Start/Pause");
         next.setName("Next");
 
+        //        
+        JPanel panelOfTimeEditing = new JPanel(new GridLayout(1, 0));
+        for (int i = 0; i < allClocks.size(); i++) {
+            JPanel buttonSpecificPanel = new JPanel(new GridLayout(1, 3));
+            panelOfTimeEditing.add(buttonSpecificPanel);
+            JButton addTime = new JButton("+ 15 sec");
+            JButton timePenalty = new JButton("- 15 sec");
+
+            buttonSpecificPanel.add(timePenalty);
+            buttonSpecificPanel.add(addTime);
+            panelOfTimeEditing.add(buttonSpecificPanel);
+
+            TimerSpecificListener tSListener = new TimerSpecificListener(allClocks.get(i), addTime, timePenalty);
+
+            addTime.addActionListener(tSListener);
+            timePenalty.addActionListener(tSListener);
+            timePenalty.addActionListener(new TimerSpecificListener(allClocks.get(i)));
+
+        }
+
+//     
         PlayersActionListener userListener = new PlayersActionListener(next, start, timelogic);
         next.addActionListener(userListener);
         start.addActionListener(userListener);
 
         JPanel panelOfButtons = new JPanel(new GridLayout(1, 0));
         panelOfButtons.add(start);
-        panelOfButtons.add(next);     
+        panelOfButtons.add(next);
+
         card2.add(panelOfButtons);
         card2.add(panelOfClocks);
-        
+        card2.add(panelOfTimeEditing);
+
         new Thread(timelogic).start();
         cards.add(card2, CLOCKSPANEL);
         frame.getContentPane().add(cards);
