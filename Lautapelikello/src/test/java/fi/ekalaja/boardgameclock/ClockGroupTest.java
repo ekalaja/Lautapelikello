@@ -1,5 +1,6 @@
 package fi.ekalaja.boardgameclock;
 
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

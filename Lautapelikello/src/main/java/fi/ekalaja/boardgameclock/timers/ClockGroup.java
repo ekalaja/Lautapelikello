@@ -1,8 +1,9 @@
 /**
 * This class creates an ArrayList of SimpleTimers.
 */
-package fi.ekalaja.boardgameclock;
+package fi.ekalaja.boardgameclock.timers;
 
+import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
 import java.util.List;
 

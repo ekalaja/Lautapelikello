@@ -5,7 +5,7 @@
  */
 package fi.ekalaja.boardgameclock.actionlistener;
 
-import fi.ekalaja.boardgameclock.SimpleTimer;
+import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;

@@ -1,5 +1,6 @@
 package fi.ekalaja.boardgameclock;
 
+import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

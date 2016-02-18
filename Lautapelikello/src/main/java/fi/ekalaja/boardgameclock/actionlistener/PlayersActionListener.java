@@ -3,7 +3,7 @@
 */
 package fi.ekalaja.boardgameclock.actionlistener;
 
-import fi.ekalaja.boardgameclock.TimeLogic;
+import fi.ekalaja.boardgameclock.timelogic.TimeLogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;

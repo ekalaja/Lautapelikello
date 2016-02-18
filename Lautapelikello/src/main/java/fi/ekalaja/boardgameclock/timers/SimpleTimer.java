@@ -3,7 +3,7 @@
 * This class is used to save the time used by each player.
 * Each SimpleTimer is linked to one ClockNumberFrame.
 */
-package fi.ekalaja.boardgameclock;
+package fi.ekalaja.boardgameclock.timers;
 
 import fi.ekalaja.boardgameclock.clockui.ClockNumberFrame;
 

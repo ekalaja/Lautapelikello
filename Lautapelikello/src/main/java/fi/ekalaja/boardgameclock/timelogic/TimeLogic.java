@@ -2,11 +2,10 @@
 * TimeLogic is responsible for counting down the time in the SimpleTimers.
 * 
 */
-package fi.ekalaja.boardgameclock;
+package fi.ekalaja.boardgameclock.timelogic;
 
-import fi.ekalaja.boardgameclock.clockui.SwingUi;
+import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TimeLogic implements Runnable {
 
@@ -33,16 +32,17 @@ public class TimeLogic implements Runnable {
  * for counting of the used time. It also makes sure the right clock is in use
  * and checks if user has pushed new buttons.
  */
+    
     public void run() {
-//        Date  date = new Date();
-//        int deltaTime = 0;
-//        long currentTime = date.getTime();
         
         
         while (true) {
+            
             if (pauseOn) {
                 this.pauseMode();
             }
+            
+            
             if (nextClock) {
                 clockInUse++;
                 this.setNextClockFalse();
@@ -58,14 +58,9 @@ public class TimeLogic implements Runnable {
             if (stopEverythingTestUse) {
                 break;
             }
-//            System.out.println("paasi loppuun");
         }
     }
     
-
-//    public void setSwingUi(SwingUi swingui) {
-//        this.swingui = swingui;
-//    }
     public int getClockInUse() {
         return this.clockInUse;
     }
@@ -119,10 +114,9 @@ public class TimeLogic implements Runnable {
         return this.pauseOn;
     }
     /**
-     * this method is only for test use. I may extend it's usage for other
-     * purposes also.
+     * This method stops the "run" loop when new TimeLogic is created.
      */
-    public void forTestingActivateStopEverything() {
+    public void ActivateStopEverything() {
         this.stopEverythingTestUse = true;
     }
 

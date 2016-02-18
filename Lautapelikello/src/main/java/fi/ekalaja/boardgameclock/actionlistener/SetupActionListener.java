@@ -5,8 +5,8 @@
 */
 package fi.ekalaja.boardgameclock.actionlistener;
 
-import fi.ekalaja.boardgameclock.ClockGroup;
-import fi.ekalaja.boardgameclock.TimeLogic;
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
+import fi.ekalaja.boardgameclock.timelogic.TimeLogic;
 import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +57,8 @@ public class SetupActionListener implements ActionListener {
         for (int i = 0; i < arvo; i++) {
             clocks.addAClock(minutes, seconds);
         }
-
+        
+        
         timelogic = new TimeLogic(clocks.returnList());
         swingui.addTimeLogicAndClocks(timelogic, clocks.returnList());
         swingui.createCardTwo();

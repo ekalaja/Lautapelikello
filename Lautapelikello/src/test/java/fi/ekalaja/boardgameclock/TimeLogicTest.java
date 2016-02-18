@@ -1,5 +1,7 @@
 package fi.ekalaja.boardgameclock;
 
+import fi.ekalaja.boardgameclock.timelogic.TimeLogic;
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -87,14 +89,14 @@ public class TimeLogicTest {
     @Test
     public void testPauseLoopWhileTrue() {
         // Tests loops ability to finish after false value on PauseOn
-        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.ActivateStopEverything();
         this.timelogic.pauseMode();
         assertTrue(this.timelogic.getPauseOnStatus());
     }
     
     @Test
     public void testRunAfterOneCycles() {
-        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.ActivateStopEverything();
         this.timelogic.changePauseOnStatus();
         this.timelogic.run();
         assertEquals(0,this.timelogic.getClockInUse());
@@ -102,14 +104,14 @@ public class TimeLogicTest {
     
     @Test
     public void testRunAfterOneCycleGoPauseMode() {
-        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.ActivateStopEverything();
         this.timelogic.run();
         assertEquals(0,this.timelogic.getClockInUse());
     }
     
     @Test
     public void testRunAfterOneCycleChangeToNextClock() {
-        this.timelogic.forTestingActivateStopEverything();
+        this.timelogic.ActivateStopEverything();
         this.timelogic.setNextClockTrue();
         this.timelogic.run();
         assertEquals(1,this.timelogic.getClockInUse());

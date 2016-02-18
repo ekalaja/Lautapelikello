@@ -4,9 +4,10 @@
 */
 package fi.ekalaja.boardgameclock.clockui;
 
-import javax.swing.JTextField;
+import javax.swing.JLabel;
 
-public class ClockNumberFrame extends JTextField {
+
+public class ClockNumberFrame extends JLabel {
 
     public ClockNumberFrame(String values) {
         super(values);
