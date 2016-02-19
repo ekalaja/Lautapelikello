@@ -5,6 +5,7 @@
 package fi.ekalaja.boardgameclock.clockui;
 
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 
 public class ClockNumberFrame extends JLabel {

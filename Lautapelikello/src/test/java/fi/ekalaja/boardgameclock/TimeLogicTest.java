@@ -1,6 +1,6 @@
 package fi.ekalaja.boardgameclock;
 
-import fi.ekalaja.boardgameclock.timelogic.TimeLogic;
+import fi.ekalaja.boardgameclock.timelogic.TimersLogic;
 import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import fi.ekalaja.boardgameclock.clockui.SwingUi;
 import org.junit.After;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * @author ekalaja
  */
 public class TimeLogicTest {
-    TimeLogic timelogic;
+    TimersLogic timelogic;
     public TimeLogicTest() {
     }
 
@@ -24,7 +24,7 @@ public class TimeLogicTest {
         ClockGroup clockgroup = new ClockGroup();
         clockgroup.addAClock(5,0);
         clockgroup.addAClock(0,10);
-        timelogic = new TimeLogic(clockgroup.returnList());
+        timelogic = new TimersLogic(clockgroup.returnList());
         
     }
     

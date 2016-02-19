@@ -4,10 +4,13 @@
 package fi.ekalaja.boardgameclock.clockui;
 
 import fi.ekalaja.boardgameclock.timers.SimpleTimer;
-import fi.ekalaja.boardgameclock.timelogic.TimeLogic;
+import fi.ekalaja.boardgameclock.timelogic.TimersLogic;
 import fi.ekalaja.boardgameclock.actionlistener.PlayersActionListener;
+import fi.ekalaja.boardgameclock.actionlistener.SettingsPanelListener;
 import fi.ekalaja.boardgameclock.actionlistener.SetupActionListener;
 import fi.ekalaja.boardgameclock.actionlistener.TimerSpecificListener;
+import fi.ekalaja.boardgameclock.timelogic.HourglassLogic;
+import fi.ekalaja.boardgameclock.timelogic.LogicOfTime;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -15,53 +18,55 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-public class SwingUi implements Runnable, ItemListener {
+public class SwingUi implements Runnable {
 
     private JFrame frame;
     private ArrayList<SimpleTimer> allClocks;
-    private TimeLogic timelogic;
+    private LogicOfTime logic;
     private JPanel cards;
     private JTextField numberOfClocks;
-
     final static String CLOCKSPANEL = "CLOCKS";
     final static String SETUPPANEL = "SETUP";
+    private JPanel card2;
+    private JButton back;
 
     @Override
     public void run() {
         frame = new JFrame("Clocks");
         frame.setPreferredSize(new Dimension(600, 200));
-        frame.setMinimumSize(new Dimension(400,200));
+        frame.setMinimumSize(new Dimension(400, 200));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.createAllComponents(frame.getContentPane());
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
-        
+
     }
 
     public void createAllComponents(Container pane) {
-        JPanel comboBoxPane = new JPanel();
-        String comboBoxItems[] = {SETUPPANEL, CLOCKSPANEL};
-        JComboBox cb = new JComboBox(comboBoxItems);
-        cb.setEditable(false);
-        cb.addItemListener(this);
-        comboBoxPane.add(cb);
 
         cards = new JPanel(new CardLayout());
-        cards.add(this.createCardOne(), SETUPPANEL);
+        JPanel card1 = this.createCardOne();
+        cards.add(card1, "SETUPPANEL");
 
-        pane.add(comboBoxPane, BorderLayout.PAGE_START);
+        back = new JButton("back");
+        back.setVisible(false);
+        SettingsPanelListener settingsListener = new SettingsPanelListener(back, this);
+        back.addActionListener(settingsListener);
+        JPanel topSettings = new JPanel(new GridLayout(1, 3));
+        topSettings.add(new JLabel(""));
+        topSettings.add(new JLabel(""));
+        topSettings.add(back);
+
+        pane.add(topSettings, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
     }
 
@@ -78,8 +83,10 @@ public class SwingUi implements Runnable, ItemListener {
         JTextField givenSeconds = new JTextField("0");
 
         JButton begin = new JButton("Begin");
-        SetupActionListener setupListener = new SetupActionListener(begin, numberOfClocks, givenMinutes, givenSeconds, this);
+        JButton hourglass = new JButton("Start 1v1 with hourglass");
+        SetupActionListener setupListener = new SetupActionListener(begin, hourglass, numberOfClocks, givenMinutes, givenSeconds, this);
         begin.addActionListener(setupListener);
+        hourglass.addActionListener(setupListener);
 
         panelOfTextFields.add(playerNumberInfo);
         panelOfTextFields.add(minutesInfo);
@@ -92,21 +99,20 @@ public class SwingUi implements Runnable, ItemListener {
 
         JPanel setupButtonsPanel = new JPanel(new GridLayout(1, 0));
         setupButtonsPanel.add(begin);
+        setupButtonsPanel.add(hourglass);
         card1.add(setupButtonsPanel);
         return card1;
     }
 
     public void createCardTwo() {
-        
-        
-        JPanel card2 = new JPanel(new GridLayout(3, 1));
+
+        card2 = new JPanel(new GridLayout(0, 1));
         JPanel panelOfClocks = new JPanel(new GridLayout(1, 0));
 
         for (int i = 0; i < allClocks.size(); i++) {
             ClockNumberFrame clockFrame = allClocks.get(i).returnClockNumberFrame();
             Font f = new Font("Greek", 1, 30);
-            
-            
+
             clockFrame.setFont(f);
             clockFrame.setForeground(Color.black);
             panelOfClocks.add(clockFrame);
@@ -136,7 +142,7 @@ public class SwingUi implements Runnable, ItemListener {
 
         }
 
-        PlayersActionListener userListener = new PlayersActionListener(next, start, timelogic);
+        PlayersActionListener userListener = new PlayersActionListener(next, start, logic);
         next.addActionListener(userListener);
         start.addActionListener(userListener);
 
@@ -146,38 +152,50 @@ public class SwingUi implements Runnable, ItemListener {
 
         card2.add(panelOfButtons);
         card2.add(panelOfClocks);
-        card2.add(panelOfTimeEditing);
-       
-        new Thread(timelogic).start();
-        
-        cards.add(card2, CLOCKSPANEL);
-        frame.getContentPane().add(cards);
-        this.changeToClocksView();
-        
-    }
 
-    public void changeToClocksView() {
-        CardLayout cl =(CardLayout) cards.getLayout();
-        cl.show(cards, CLOCKSPANEL);
-    }
-    
-    @Override
-    public void itemStateChanged(ItemEvent evt) {
-        CardLayout cl = (CardLayout) (cards.getLayout());
-        cl.show(cards, (String) evt.getItem());
-    }
+        if (logic.getClass() == TimersLogic.class) {
+            card2.add(panelOfTimeEditing);
 
-    public void addTimeLogicAndClocks(TimeLogic timelogic, ArrayList allClocks) {
-        if (this.timelogic != null) {
-            this.timelogic.ActivateStopEverything();
         }
-        this.timelogic = timelogic;
+
+        new Thread(logic).start();
+
+        cards.add(card2, "CLOCKSPANEL");
+        frame.getContentPane().add(cards);
+        back.setVisible(true);
+        this.changeToAnotherView();
+
+    }
+
+    public void changeToAnotherView() {
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);
+    }
+
+
+    public void addTimeLogicAndClocks(TimersLogic timelogic, ArrayList allClocks) {
+        if (this.logic != null) {
+            this.logic.activateStopEverything();
+            this.cards.remove(card2);
+
+        }
+        this.logic = timelogic;
         this.allClocks = allClocks;
 
     }
 
     public JFrame getFrame() {
         return frame;
+    }
+
+    public void addHourglassLogic(HourglassLogic hourglassL, ArrayList<SimpleTimer> returnList) {
+        if (this.logic != null) {
+            this.logic.activateStopEverything();
+            this.cards.remove(card2);
+        }
+
+        this.logic = hourglassL;
+        this.allClocks = returnList;
     }
 
 }

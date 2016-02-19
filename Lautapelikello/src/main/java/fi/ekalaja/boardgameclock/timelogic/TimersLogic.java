@@ -7,7 +7,7 @@ package fi.ekalaja.boardgameclock.timelogic;
 import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
 
-public class TimeLogic implements Runnable {
+public class TimersLogic implements LogicOfTime {
 
     private ArrayList<SimpleTimer> allclocks;
     private boolean nextClock;
@@ -15,16 +15,16 @@ public class TimeLogic implements Runnable {
 //    private SwingUi swingui;
     private int listSize;
     private boolean pauseOn;
-    private boolean stopEverythingTestUse;
+    private boolean stopEverything;
 
-    public TimeLogic(ArrayList<SimpleTimer> allclocks) {
+    public TimersLogic(ArrayList<SimpleTimer> allclocks) {
 
         clockInUse = 0;
         this.allclocks = allclocks;
         nextClock = false;
         pauseOn = true;
         listSize = allclocks.size();
-        this.stopEverythingTestUse = false;
+        this.stopEverything = false;
 
     }
 /**
@@ -32,7 +32,7 @@ public class TimeLogic implements Runnable {
  * for counting of the used time. It also makes sure the right clock is in use
  * and checks if user has pushed new buttons.
  */
-    
+    @Override
     public void run() {
         
         
@@ -55,7 +55,7 @@ public class TimeLogic implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println("awakened prematurely");
             }
-            if (stopEverythingTestUse) {
+            if (stopEverything) {
                 break;
             }
         }
@@ -94,7 +94,7 @@ public class TimeLogic implements Runnable {
             }
             if (pauseOn == false) {
                 break;
-            } else if (this.stopEverythingTestUse) {
+            } else if (this.stopEverything) {
                 break;
             }
         }
@@ -117,7 +117,12 @@ public class TimeLogic implements Runnable {
      * This method stops the "run" loop when new TimeLogic is created.
      */
     public void ActivateStopEverything() {
-        this.stopEverythingTestUse = true;
+        this.stopEverything = true;
+    }
+
+    @Override
+    public void activateStopEverything() {
+        this.stopEverything = true;
     }
 
 }

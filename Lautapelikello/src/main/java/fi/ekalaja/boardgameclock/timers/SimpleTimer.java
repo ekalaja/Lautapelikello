@@ -45,11 +45,18 @@ public class SimpleTimer {
     public void timerTicks() {
         if (seconds > 0) {
             seconds -= 1;
-
         } else if (seconds == 0 && minutes > 0) {
             minutes -= 1;
             seconds = 59;
-
+        }
+    }
+    
+    public void timerUnticks() {
+        if (seconds < 59) {
+            seconds += 1;
+        } else if (seconds == 59) {
+            minutes += 1;
+            seconds = 0;
         }
     }
     
