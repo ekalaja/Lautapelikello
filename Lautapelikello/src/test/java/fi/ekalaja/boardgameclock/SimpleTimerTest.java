@@ -32,7 +32,7 @@ public class SimpleTimerTest {
 
         assertEquals("10:00", simpletimer.toString());
     }
-    
+
     @Test
     public void testToStringForManyMinManySec() {
         try {
@@ -43,7 +43,7 @@ public class SimpleTimerTest {
             fail("ei nain");
         }
     }
-    
+
 //    @Test
 //    public void testToStringForManyMinFewSec() {
 //        try {
@@ -125,7 +125,7 @@ public class SimpleTimerTest {
         } catch (Exception e) {
         }
     }
-    
+
     @Test
     public void testTimerGetsNegativeValues() {
         try {
@@ -138,18 +138,17 @@ public class SimpleTimerTest {
             assertEquals("fail", errorReport);
         }
     }
-    
-    
+
     @Test
     public void testFrameValuesCorrecttAfterCreation() {
-        assertEquals("10:00",this.simpletimer.returnClockNumberFrame().getText());
+        assertEquals("10:00", this.simpletimer.returnClockNumberFrame().getText());
     }
-    
+
     @Test
     public void testFrameValuesCorrectAfterTimerTicksAndUpdates() {
         this.simpletimer.timerTicks();
         this.simpletimer.refreshFrameNumbers();
-        assertEquals("09:59",this.simpletimer.returnClockNumberFrame().getText());
+        assertEquals("09:59", this.simpletimer.returnClockNumberFrame().getText());
     }
-    
+
 }

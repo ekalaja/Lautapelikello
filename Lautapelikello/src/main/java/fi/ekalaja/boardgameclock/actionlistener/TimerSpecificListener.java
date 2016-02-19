@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * This class gives every created SimpleTimer two buttons,  
+ * which effect only that SimpleTimer.
  */
 package fi.ekalaja.boardgameclock.actionlistener;
 
@@ -11,8 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- *
- * @author ekalaja
+ * This class gives every created SimpleTimer two buttons,  
+ * which effect only that SimpleTimer.
  */
 public class TimerSpecificListener implements ActionListener {
 
@@ -20,10 +19,13 @@ public class TimerSpecificListener implements ActionListener {
     private JButton addTime;
     private JButton timePenalty;
 
-    public TimerSpecificListener(SimpleTimer simpletimer) {
-        this.simpletimer = simpletimer;
-    }
 
+/**
+ * This constructor is given the specific timer and two buttons related to it.
+ * @param simpletimer the specific timer
+ * @param addTime gives 15 seconds to the SimpleTimer
+ * @param timePenalty takes 15 seconds from the SimpleTimer
+ */
     public TimerSpecificListener(SimpleTimer simpletimer, JButton addTime, JButton timePenalty) {
         this.simpletimer = simpletimer;
         this.addTime = addTime;

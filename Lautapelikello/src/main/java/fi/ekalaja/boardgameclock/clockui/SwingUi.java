@@ -33,8 +33,6 @@ public class SwingUi implements Runnable {
     private LogicOfTime logic;
     private JPanel cards;
     private JTextField numberOfClocks;
-    final static String CLOCKSPANEL = "CLOCKS";
-    final static String SETUPPANEL = "SETUP";
     private JPanel card2;
     private JButton back;
 
@@ -55,7 +53,7 @@ public class SwingUi implements Runnable {
 
         cards = new JPanel(new CardLayout());
         JPanel card1 = this.createCardOne();
-        cards.add(card1, "SETUPPANEL");
+        cards.add(card1);
 
         back = new JButton("back");
         back.setVisible(false);
@@ -138,8 +136,6 @@ public class SwingUi implements Runnable {
 
             addTime.addActionListener(tSListener);
             timePenalty.addActionListener(tSListener);
-            timePenalty.addActionListener(new TimerSpecificListener(allClocks.get(i)));
-
         }
 
         PlayersActionListener userListener = new PlayersActionListener(next, start, logic);
@@ -160,7 +156,7 @@ public class SwingUi implements Runnable {
 
         new Thread(logic).start();
 
-        cards.add(card2, "CLOCKSPANEL");
+        cards.add(card2);
         frame.getContentPane().add(cards);
         back.setVisible(true);
         this.changeToAnotherView();
@@ -171,7 +167,6 @@ public class SwingUi implements Runnable {
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
     }
-
 
     public void addTimeLogicAndClocks(TimersLogic timelogic, ArrayList allClocks) {
         if (this.logic != null) {

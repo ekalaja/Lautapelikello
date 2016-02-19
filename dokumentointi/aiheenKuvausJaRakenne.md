@@ -10,3 +10,5 @@
 **Luokkakaavio**
 
 ![kaavio](chart.png)
+![sekkaavio](sekvenssikaavio1.png)
+![sekkaavio](sekvenssikaavio2.png)

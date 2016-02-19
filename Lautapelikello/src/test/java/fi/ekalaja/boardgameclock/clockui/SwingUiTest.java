@@ -27,7 +27,6 @@ public class SwingUiTest extends AssertJSwingJUnitTestCase {
 //        assertEquals(1,1);
 //
 //    }
-
     @Override
     protected void onSetUp() {
         application(fi.ekalaja.boardgameclock.Main.class).start();
@@ -38,6 +37,5 @@ public class SwingUiTest extends AssertJSwingJUnitTestCase {
             }
         }).using(robot());
     }
-
 
 }

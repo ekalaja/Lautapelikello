@@ -9,7 +9,8 @@ import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
 
 /**
- *
+ * Simplified logic of the TimersLogic. Hourglass logic also adds player's time
+ * when when opponent's time is reduced.
  * @author ekalaja
  */
 public class HourglassLogic implements LogicOfTime {
@@ -22,6 +23,10 @@ public class HourglassLogic implements LogicOfTime {
     private boolean stopEverything;
     private int passiveClock;
 
+    /**
+     * HourglassLogic is always given a list of two SimpleTimers.
+     * @param allclocks size is 2.
+     */
     public HourglassLogic(ArrayList<SimpleTimer> allclocks) {
 
         activeClock = 0;
@@ -34,27 +39,17 @@ public class HourglassLogic implements LogicOfTime {
     }
 
     /**
-     * This is where
+     * When this is active, the time is going a second by second
+     * from a player to another.
      */
-@Override
+    @Override
     public void run() {
 
         while (true) {
 
-            if (pauseOn) {
-                this.pauseMode();
-            }
+            this.checkPauseOnStatus();
+            this.checkNextClockStatus();
 
-            if (nextClock) {
-                if (this.getActiveClock() == 0) {
-                    this.activeClock = 1;
-                    this.passiveClock = 0;
-                } else {
-                    this.activeClock = 0;
-                    this.passiveClock = 1;
-                }
-                this.setNextClockFalse();
-            }
             allclocks.get(activeClock).timerTicks();
             allclocks.get(passiveClock).timerUnticks();
             allclocks.get(activeClock).refreshFrameNumbers();
@@ -71,6 +66,35 @@ public class HourglassLogic implements LogicOfTime {
         }
     }
 
+    /**
+     * Checks if "next" button has been pushed.
+     */
+    public void checkNextClockStatus() {
+        if (nextClock) {
+            if (this.getActiveClock() == 0) {
+                this.activeClock = 1;
+                this.passiveClock = 0;
+            } else {
+                this.activeClock = 0;
+                this.passiveClock = 1;
+            }
+            this.setNextClockFalse();
+        }
+    }
+
+    /**
+     * checks if "pause/start" button has been pushed.
+     */
+    public void checkPauseOnStatus() {
+        if (pauseOn) {
+            this.pauseMode();
+        }
+    }
+
+    /**
+     * Returns currently active clock.
+     * @return is always either 1 or 0
+     */
     public int getActiveClock() {
         return this.activeClock;
     }
@@ -79,14 +103,22 @@ public class HourglassLogic implements LogicOfTime {
     public void setNextClockTrue() {
         this.nextClock = true;
     }
+    /**
+     * this is mostly used for testing.
+     * @return gives the value of "nextClock" boolean
+     */
+    public boolean nextClockTruthValue() {
+        return nextClock;
+    }
 
+    /**
+     * method resets the boolean value when "next" button is pushed and
+     * code has reacted to it.
+     */
     public void setNextClockFalse() {
         this.nextClock = false;
     }
 
-    public boolean nextClockTruthValue() {
-        return nextClock;
-    }
 
 
     /**
@@ -128,7 +160,6 @@ public class HourglassLogic implements LogicOfTime {
     /**
      * This method stops the "run" loop when new logic is created.
      */
-
     @Override
     public void activateStopEverything() {
         this.stopEverything = true;
