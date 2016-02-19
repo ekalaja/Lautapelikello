@@ -27,6 +27,6 @@
 
 **18.2.2016** Bugien poistoa. 6h
 
-**17.2.2016** Logiikka update, checkstyle uudistukset, kaavioiden tekoa. 9h
+**19.2.2016** Logiikka update, checkstyle uudistukset, kaavioiden tekoa. 9h
 
 
