@@ -15,6 +15,7 @@ public class SimpleTimer {
 
     /**
      * Each SimpleTimer has a ClockFrame specified for it.
+     *
      * @param minutes the number of minutes left in the timer
      * @param seconds the number of seconds left in the timer
      * @throws Exception Prevents illegal values to be given for the timers.
@@ -31,6 +32,7 @@ public class SimpleTimer {
 
     /**
      * This method makes sure that time is given in the right format.
+     *
      * @return is a String which contains the time in minutes and seconds
      */
     @Override
@@ -57,9 +59,10 @@ public class SimpleTimer {
             seconds = 59;
         }
     }
-/**
- * This method gives the timer additional second.
- */
+
+    /**
+     * This method gives the timer additional second.
+     */
     public void timerUnticks() {
         if (seconds < 59) {
             seconds += 1;
@@ -68,9 +71,10 @@ public class SimpleTimer {
             seconds = 0;
         }
     }
-/**
- * This method adds 15 seconds for the timer.
- */
+
+    /**
+     * This method adds 15 seconds for the timer.
+     */
     public void addAQuarterMinute() {
         if (this.seconds < 45) {
             this.seconds += 15;
@@ -90,22 +94,27 @@ public class SimpleTimer {
 
     /**
      * Method returns SimpleTimer's specific ClockNumberFrame.
+     *
      * @return SimpleTimer's specific ClockFrame.
      */
     public ClockNumberFrame returnClockNumberFrame() {
         return this.clockframe;
     }
-/**
- * This method takes 15 seconds from the timer.
- */
+
+    /**
+     * This method takes 15 seconds from the timer.
+     */
     public void reduceAQuarterMinute() {
-        if (this.seconds > 14) {
-            this.seconds -= 15;
-        } else {
-            int change = 15 - this.seconds;
-            this.seconds = 60 - change;
-            this.minutes -= 1;
+        if (seconds > 14 | minutes > 0) {
+            if (this.seconds > 14) {
+                this.seconds -= 15;
+            } else {
+                int change = 15 - this.seconds;
+                this.seconds = 60 - change;
+                this.minutes -= 1;
+            }
         }
+
     }
 
 }

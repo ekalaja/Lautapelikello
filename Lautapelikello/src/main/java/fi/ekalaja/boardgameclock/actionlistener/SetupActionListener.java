@@ -26,8 +26,9 @@ public class SetupActionListener implements ActionListener {
     private final JButton hourglass;
 
     /**
-     * This constructor inserts listener for buttons needed at Card1, which is 
+     * This constructor inserts listener for buttons needed at Card1, which is
      * setup card.
+     *
      * @param begin starts a regular game
      * @param hourglass starts 1v1 with hourglass game mode
      * @param numberOfClocks number of clocks
@@ -56,7 +57,9 @@ public class SetupActionListener implements ActionListener {
                 minutes = Integer.parseInt(givenMinutes.getText());
                 seconds = Integer.parseInt(givenSeconds.getText());
                 if (ae.getSource() == begin) {
-                    this.createClocksAndTimeLogic(value, minutes, seconds);
+                    if ((value > 0 && minutes > 0) | (value > 0 && seconds > 0)) {
+                        this.createClocksAndTimeLogic(value, minutes, seconds);
+                    }
                 }
             } catch (Exception e) {
                 System.out.println("virhe");
@@ -68,17 +71,21 @@ public class SetupActionListener implements ActionListener {
             } catch (Exception e) {
                 System.out.println("Value of minutes must be positive.");
             }
-            this.createHourglassLogic(minutes);
+            if (minutes > 0) {
+                this.createHourglassLogic(minutes);
+            }
         }
 
     }
-/**
- * This method is chosen if game mode is normal. It creates as many clocks
- * as user has chosen in Card1.
- * @param arvo number of players
- * @param minutes amount of minutes in the beginning
- * @param seconds amount of seconds in the beginning
- */
+
+    /**
+     * This method is chosen if game mode is normal. It creates as many clocks
+     * as user has chosen in Card1.
+     *
+     * @param arvo number of players
+     * @param minutes amount of minutes in the beginning
+     * @param seconds amount of seconds in the beginning
+     */
     public void createClocksAndTimeLogic(int arvo, int minutes, int seconds) {
         clocks = new ClockGroup();
 
@@ -91,11 +98,14 @@ public class SetupActionListener implements ActionListener {
         swingui.createCardTwo();
 
     }
-/**
- * This method is chosen if game mode is hourglass. It creates HourglassLogic which
- * always takes time from another player and gives it's opponent.
- * @param minutes 
- */
+
+    /**
+     * This method is chosen if game mode is hourglass. It creates
+     * HourglassLogic which always takes time from another player and gives it's
+     * opponent.
+     *
+     * @param minutes
+     */
     public void createHourglassLogic(int minutes) {
         clocks = new ClockGroup();
 

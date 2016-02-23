@@ -19,9 +19,8 @@ public interface LogicOfTime extends Runnable {
      * from being active in the background.
      */
     public void activateStopEverything();
-
     /**
-     * always changes the status of nextClock boolean to true.
+     * Changes the status of boolean nextClock to true.
      */
     public void setNextClockTrue();
 /**
