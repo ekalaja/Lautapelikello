@@ -5,6 +5,7 @@
  */
 package fi.ekalaja.boardgameclock.timelogic;
 
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,6 +18,7 @@ import static org.junit.Assert.*;
  * @author ekalaja
  */
 public class HourglassLogicTest {
+    private HourglassLogic hl;
     
     public HourglassLogicTest() {
     }
@@ -24,6 +26,10 @@ public class HourglassLogicTest {
     
     @Before
     public void setUp() {
+        ClockGroup clockgroup = new ClockGroup();
+        clockgroup.addAClock(5, 0);
+        clockgroup.addAClock(0, 10);
+        hl = new HourglassLogic(clockgroup.returnList());
     }
 
     /**
@@ -37,55 +43,31 @@ public class HourglassLogicTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-//
-//    /**
-//     * Test of checkNextClockStatus method, of class HourglassLogic.
-//     */
-//    @Test
-//    public void testCheckNextClockStatus() {
-//        System.out.println("checkNextClockStatus");
-//        HourglassLogic instance = null;
-//        instance.checkNextClockStatus();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of checkPauseOnStatus method, of class HourglassLogic.
-//     */
-//    @Test
-//    public void testCheckPauseOnStatus() {
-//        System.out.println("checkPauseOnStatus");
-//        HourglassLogic instance = null;
-//        instance.checkPauseOnStatus();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+
+    @Test
+    public void testCheckNextClockStatus() {
+        System.out.println("checkNextClockStatus");
+        assertFalse(hl.nextClockTruthValue());
+    }
+
 //
 //    /**
 //     * Test of getActiveClock method, of class HourglassLogic.
 //     */
-//    @Test
-//    public void testGetActiveClock() {
-//        System.out.println("getActiveClock");
-//        HourglassLogic instance = null;
-//        int expResult = 0;
-//        int result = instance.getActiveClock();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testGetActiveClock() {
+        assertEquals(0,hl.getActiveClock());
+    }
 //
 //    /**
 //     * Test of setNextClockTrue method, of class HourglassLogic.
 //     */
 //    @Test
 //    public void testSetNextClockTrue() {
-//        System.out.println("setNextClockTrue");
-//        HourglassLogic instance = null;
-//        instance.setNextClockTrue();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+//        hl.setNextClockTrue();
+//        hl.activateStopEverything();
+//        hl.run();
+//        assertEquals(1,hl.getActiveClock());
 //    }
 //
 //    /**

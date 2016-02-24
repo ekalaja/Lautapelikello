@@ -35,63 +35,82 @@ public class SimpleTimerTest {
 
     @Test
     public void testToStringToTenMinutes() {
-
         assertEquals("10:00", simpletimer.toString());
+    }
+    
+    @Test
+    public void testReducingAQuarterMinute() {
+        this.simpletimer.reduceAQuarterMinute();
+        assertEquals("09:45", simpletimer.toString());
+    }
+    
+    @Test
+    public void testAddingAQuarterMinute() {
+        this.simpletimer.addAQuarterMinute();
+        assertEquals("10:15", simpletimer.toString());
+    }
+    
+    
+    @Test
+    public void testTimerUnticks() {
+        this.simpletimer.timerUnticks();
+        assertEquals("10:01", simpletimer.toString());
+    }
+    
+    @Test
+    public void testClockframeSameAfterTimerTicks() {
+        this.simpletimer.timerTicks();
+        assertEquals("10:00",this.simpletimer.returnClockNumberFrame().getText());
+    }
+    
+    @Test
+    public void testClockframeRefreshedAfterTimerTicksAndRefreshes() {
+        this.simpletimer.timerTicks();
+        this.simpletimer.refreshFrameNumbers();
+        assertEquals("09:59",this.simpletimer.returnClockNumberFrame().getText());
     }
 
     @Test
     public void testToStringForManyMinManySec() {
         try {
             SimpleTimer othertimer = new SimpleTimer(11, 11);
-            othertimer.timerTicks();
-            assertEquals("11:10", othertimer.toString());
+            assertEquals("11:11", othertimer.toString());
         } catch (Exception e) {
             fail("ei nain");
         }
     }
-
-//    @Test
-//    public void testToStringForManyMinFewSec() {
-//        try {
-//            SimpleTimer othertimer = new SimpleTimer(11, 2);
-//            othertimer.timerTicks();
-//            assertEquals("11:01", othertimer.toString());
-//        } catch (Exception e) {
-//            fail("ei nain");
-//        }
-//    }
-//    
+    
+    @Test
+    public void testToStringForManyMinFewSec() {
+        try {
+            SimpleTimer othertimer = new SimpleTimer(12, 0);
+            assertEquals("12:00", othertimer.toString());
+        } catch (Exception e) {
+            fail("ei nain");
+        }
+    }
+  
     @Test
     public void testToStringForFewMinManySec() {
         try {
             SimpleTimer othertimer = new SimpleTimer(1, 12);
-            othertimer.timerTicks();
-            assertEquals("01:11", othertimer.toString());
+            assertEquals("01:12", othertimer.toString());
         } catch (Exception e) {
             fail("ei nain");
         }
     }
 
     @Test
-    public void testOfOneMinute() {
-        try {
-            SimpleTimer othertimer = new SimpleTimer(1, 0);
-            othertimer.timerTicks();
-            assertEquals("00:59", othertimer.toString());
-        } catch (Exception e) {
-            fail("ei nain");
-        }
-    }
-
-    @Test
-    public void testOfOneMinutePlusOneSec() {
+    public void testToStringFewMinFewSec() {
         try {
             SimpleTimer othertimer = new SimpleTimer(1, 1);
-            othertimer.timerTicks();
-            assertEquals("01:00", othertimer.toString());
+            assertEquals("01:01", othertimer.toString());
         } catch (Exception e) {
+            fail("ei nain");
         }
     }
+
+   
 
     @Test
     public void testOfOneMinutePlusTwoSec() {
@@ -99,6 +118,15 @@ public class SimpleTimerTest {
             SimpleTimer othertimer = new SimpleTimer(1, 2);
             othertimer.timerTicks();
             assertEquals("01:01", othertimer.toString());
+        } catch (Exception e) {
+        }
+    }
+    
+    @Test
+    public void testOtherTimertoStringCorrect() {
+        try {
+            SimpleTimer othertimer = new SimpleTimer(6, 11);
+            assertEquals("06:11", othertimer.toString());
         } catch (Exception e) {
         }
     }
@@ -131,6 +159,8 @@ public class SimpleTimerTest {
         } catch (Exception e) {
         }
     }
+    
+    
 
     @Test
     public void testTimerGetsNegativeValues() {

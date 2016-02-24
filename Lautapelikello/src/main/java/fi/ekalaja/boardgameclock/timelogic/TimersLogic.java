@@ -18,9 +18,10 @@ public class TimersLogic implements LogicOfTime {
     private boolean stopEverything;
 
     /**
-     * TimersLogic needs the list of SimpleTimers to function. It takes
-     * care of the logic related to the project.
-     * @param allclocks  is an arrayList of SimpleTimers
+     * TimersLogic needs the list of SimpleTimers to function. It takes care of
+     * the logic related to the project.
+     *
+     * @param allclocks is an arrayList of SimpleTimers
      */
     public TimersLogic(ArrayList<SimpleTimer> allclocks) {
 
@@ -45,18 +46,24 @@ public class TimersLogic implements LogicOfTime {
 
             this.checkPauseOnStatus();
             this.checkNextClockStatus();
-
-            allclocks.get((clockInUse % listSize)).timerTicks();
-            allclocks.get((clockInUse % listSize)).refreshFrameNumbers();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("awakened prematurely");
-            }
+            this.tellTimerToTickAndRefresh();
+            this.sleepForOneSecond();
             if (stopEverything) {
                 break;
             }
+        }
+    }
+
+    /**
+     * Here the run loop waits for one second. In reality it takes a little
+     * longer than a second for the loop run through a cycle, but this is good
+     * enough approximation for board game use.
+     */
+    public void sleepForOneSecond() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("awakened prematurely");
         }
     }
 
@@ -80,7 +87,16 @@ public class TimersLogic implements LogicOfTime {
     }
 
     /**
+     * This method takes care of timers and updates their frames.
+     */
+    public void tellTimerToTickAndRefresh() {
+        allclocks.get((clockInUse % listSize)).timerTicks();
+        allclocks.get((clockInUse % listSize)).refreshFrameNumbers();
+    }
+
+    /**
      * gives the value of clock in use.
+     *
      * @return integer value of the clockInUse.
      */
     public int getClockInUse() {
@@ -103,6 +119,7 @@ public class TimersLogic implements LogicOfTime {
 
     /**
      * This is mostly used for testing.
+     *
      * @return gives the value of "nextClock" boolean.
      */
     public boolean nextClockTruthValue() {

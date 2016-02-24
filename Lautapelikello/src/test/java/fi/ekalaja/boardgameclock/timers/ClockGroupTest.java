@@ -6,6 +6,8 @@
 package fi.ekalaja.boardgameclock.timers;
 
 import fi.ekalaja.boardgameclock.timers.ClockGroup;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,24 +48,24 @@ public class ClockGroupTest {
         assertEquals(0, clockgroup.returnList().size());
     }
 
-//    @Test
-//    public void testIfIllegalClockCanBeCreated() {
-//        try {
-//            clockgroup.addAClock(0,-5);
-//            assertEquals(0,clockgroup.returnList().size());
-//        } catch (Exception e) {
-//            fail("illegal clock created?");
-//        }
-//    }
+
     @Test
     public void testIfIllegalClockCanBeCreated() {
         clockgroup.addAClock(0, -5);
         assertEquals(0, clockgroup.returnList().size());
     }
+    
+     @Test
+    public void testIfIllegalClockReportsRight() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        PrintStream old = System.out;
+        System.setOut(ps);
+        clockgroup.addAClock(0, -5);
+        System.out.flush();
+        System.setOut(old);
+        assertEquals("Use positive time.\n",baos.toString());
+    }
+    
 
-//    @Test
-//    public void testIfIllegalClockCreationReportsRight() {
-//            clockgroup.addAClock(0,-5);
-//            
-//    }
 }

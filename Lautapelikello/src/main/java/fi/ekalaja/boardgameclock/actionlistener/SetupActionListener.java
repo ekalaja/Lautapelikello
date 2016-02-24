@@ -66,13 +66,15 @@ public class SetupActionListener implements ActionListener {
             }
         } else if (ae.getSource() == hourglass) {
             int minutes = 0;
+            int seconds = 0;
             try {
+                seconds = Integer.parseInt(givenSeconds.getText());
                 minutes = Integer.parseInt(givenMinutes.getText());
             } catch (Exception e) {
                 System.out.println("Value of minutes must be positive.");
             }
-            if (minutes > 0) {
-                this.createHourglassLogic(minutes);
+            if ((minutes > 0 && seconds >= 0)|(minutes >= 0 && seconds > 0)) {
+                this.createHourglassLogic(minutes, seconds);
             }
         }
 
@@ -106,11 +108,11 @@ public class SetupActionListener implements ActionListener {
      *
      * @param minutes
      */
-    public void createHourglassLogic(int minutes) {
+    public void createHourglassLogic(int minutes, int seconds) {
         clocks = new ClockGroup();
 
-        clocks.addAClock(minutes, 0);
-        clocks.addAClock(minutes, 0);
+        clocks.addAClock(minutes, seconds);
+        clocks.addAClock(minutes, seconds);
 
         HourglassLogic hourglassL = new HourglassLogic(clocks.returnList());
         swingui.addHourglassLogic(hourglassL, clocks.returnList());

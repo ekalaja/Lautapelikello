@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * Simplified logic of the TimersLogic. Hourglass logic also adds player's time
  * when when opponent's time is reduced.
+ *
  * @author ekalaja
  */
 public class HourglassLogic implements LogicOfTime {
@@ -25,6 +26,7 @@ public class HourglassLogic implements LogicOfTime {
 
     /**
      * HourglassLogic is always given a list of two SimpleTimers.
+     *
      * @param allclocks size is 2.
      */
     public HourglassLogic(ArrayList<SimpleTimer> allclocks) {
@@ -39,8 +41,8 @@ public class HourglassLogic implements LogicOfTime {
     }
 
     /**
-     * When this is active, the time is going a second by second
-     * from a player to another.
+     * When this is active, the time is going a second by second from a player
+     * to another.
      */
     @Override
     public void run() {
@@ -49,21 +51,35 @@ public class HourglassLogic implements LogicOfTime {
 
             this.checkPauseOnStatus();
             this.checkNextClockStatus();
-
-            allclocks.get(activeClock).timerTicks();
-            allclocks.get(passiveClock).timerUnticks();
-            allclocks.get(activeClock).refreshFrameNumbers();
-            allclocks.get(passiveClock).refreshFrameNumbers();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("awakened prematurely");
-            }
+            this.tellTimerToTickAndRefresh();
+            this.sleepForOneSecond();
             if (stopEverything) {
                 break;
             }
         }
+    }
+    
+    /**
+     * Here the run loop waits for one second. In reality it takes
+     * a little longer than a second for the loop run through a cycle, but
+     * this is good enough approximation for board game use.
+     */
+    public void sleepForOneSecond() {
+        try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("awakened prematurely");
+            }      
+    }
+
+    /**
+     * This method takes care of timers and updates their frames.
+     */
+    public void tellTimerToTickAndRefresh() {
+        allclocks.get(activeClock).timerTicks();
+        allclocks.get(passiveClock).timerUnticks();
+        allclocks.get(activeClock).refreshFrameNumbers();
+        allclocks.get(passiveClock).refreshFrameNumbers();
     }
 
     /**
@@ -93,6 +109,7 @@ public class HourglassLogic implements LogicOfTime {
 
     /**
      * Returns currently active clock.
+     *
      * @return is always either 1 or 0
      */
     public int getActiveClock() {
@@ -103,8 +120,10 @@ public class HourglassLogic implements LogicOfTime {
     public void setNextClockTrue() {
         this.nextClock = true;
     }
+
     /**
      * this is mostly used for testing.
+     *
      * @return gives the value of "nextClock" boolean
      */
     public boolean nextClockTruthValue() {
@@ -112,14 +131,12 @@ public class HourglassLogic implements LogicOfTime {
     }
 
     /**
-     * method resets the boolean value when "next" button is pushed and
-     * code has reacted to it.
+     * method resets the boolean value when "next" button is pushed and code has
+     * reacted to it.
      */
     public void setNextClockFalse() {
         this.nextClock = false;
     }
-
-
 
     /**
      * pauseMode is activated when the clocks are created and when ever user
