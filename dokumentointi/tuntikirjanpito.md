@@ -29,4 +29,8 @@
 
 **19.2.2016** Logiikka update, checkstyle uudistukset, kaavioiden tekoa. 9h
 
+**24.2.2016** Testien muokkaamista ja refaktorointia. 2h
+
+**25.2.2016** Luokkakaavion päivitystä ja koodin rakenteen editointia. 2h
+
 
