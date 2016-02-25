@@ -4,6 +4,7 @@
 */
 package fi.ekalaja.boardgameclock.timelogic;
 
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
 
@@ -12,8 +13,6 @@ public class TimersLogic implements LogicOfTime {
     private ArrayList<SimpleTimer> allclocks;
     private boolean nextClock;
     private int clockInUse;
-//    private SwingUi swingui;
-    private int listSize;
     private boolean pauseOn;
     private boolean stopEverything;
 
@@ -21,15 +20,14 @@ public class TimersLogic implements LogicOfTime {
      * TimersLogic needs the list of SimpleTimers to function. It takes care of
      * the logic related to the project.
      *
-     * @param allclocks is an arrayList of SimpleTimers
+     * @param clockgroup is a class containing list of SimpleTimers.
      */
-    public TimersLogic(ArrayList<SimpleTimer> allclocks) {
+    public TimersLogic(ClockGroup clockgroup) {
 
         clockInUse = 0;
-        this.allclocks = allclocks;
+        this.allclocks = clockgroup.returnList();
         nextClock = false;
         pauseOn = true;
-        listSize = allclocks.size();
         this.stopEverything = false;
 
     }
@@ -45,6 +43,7 @@ public class TimersLogic implements LogicOfTime {
         while (true) {
 
             this.checkPauseOnStatus();
+            this.checkNextClockStatus();
             this.checkNextClockStatus();
             this.tellTimerToTickAndRefresh();
             this.sleepForOneSecond();
@@ -90,8 +89,8 @@ public class TimersLogic implements LogicOfTime {
      * This method takes care of timers and updates their frames.
      */
     public void tellTimerToTickAndRefresh() {
-        allclocks.get((clockInUse % listSize)).timerTicks();
-        allclocks.get((clockInUse % listSize)).refreshFrameNumbers();
+        allclocks.get((clockInUse % allclocks.size())).timerTicks();
+        allclocks.get((clockInUse % allclocks.size())).refreshFrameNumbers();
     }
 
     /**
@@ -102,6 +101,7 @@ public class TimersLogic implements LogicOfTime {
     public int getClockInUse() {
         return this.clockInUse;
     }
+    
 
     /**
      * changes the status of nextClock boolean to true.
@@ -124,15 +124,6 @@ public class TimersLogic implements LogicOfTime {
      */
     public boolean nextClockTruthValue() {
         return nextClock;
-    }
-
-    /**
-     * Gives the number of SimpleTimers.
-     *
-     * @return allClocks.size value.
-     */
-    public int numberOfClocks() {
-        return listSize;
     }
 
     /**

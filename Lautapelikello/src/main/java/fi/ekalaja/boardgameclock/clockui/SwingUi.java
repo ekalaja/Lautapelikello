@@ -11,6 +11,7 @@ import fi.ekalaja.boardgameclock.actionlistener.SetupActionListener;
 import fi.ekalaja.boardgameclock.actionlistener.TimerSpecificListener;
 import fi.ekalaja.boardgameclock.timelogic.HourglassLogic;
 import fi.ekalaja.boardgameclock.timelogic.LogicOfTime;
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -125,8 +126,8 @@ public class SwingUi implements Runnable {
         for (int i = 0; i < allClocks.size(); i++) {
             JPanel buttonSpecificPanel = new JPanel(new GridLayout(1, 3));
             panelOfTimeEditing.add(buttonSpecificPanel);
-            JButton addTime = new JButton("+ 15 sec");
-            JButton timePenalty = new JButton("- 15 sec");
+            JButton addTime = new JButton("<html><center>" + "+ 15 sec" + "</html></center>");
+            JButton timePenalty = new JButton("<html><center>" + "- 15 sec" + "</html></center>");
 
             buttonSpecificPanel.add(timePenalty);
             buttonSpecificPanel.add(addTime);
@@ -148,6 +149,7 @@ public class SwingUi implements Runnable {
 
         card2.add(panelOfButtons);
         card2.add(panelOfClocks);
+        
 
         if (logic.getClass() == TimersLogic.class) {
             card2.add(panelOfTimeEditing);
@@ -168,14 +170,14 @@ public class SwingUi implements Runnable {
         cl.next(cards);
     }
 
-    public void addTimeLogicAndClocks(TimersLogic timelogic, ArrayList allClocks) {
+    public void addTimeLogicAndClocks(TimersLogic timelogic, ClockGroup clockgroup) {
         if (this.logic != null) {
             this.logic.activateStopEverything();
             this.cards.remove(card2);
 
         }
         this.logic = timelogic;
-        this.allClocks = allClocks;
+        this.allClocks = clockgroup.returnList();
 
     }
 
@@ -183,14 +185,14 @@ public class SwingUi implements Runnable {
         return frame;
     }
 
-    public void addHourglassLogic(HourglassLogic hourglassL, ArrayList<SimpleTimer> returnList) {
+    public void addHourglassLogic(HourglassLogic hourglassL, ClockGroup clockgroup) {
         if (this.logic != null) {
             this.logic.activateStopEverything();
             this.cards.remove(card2);
         }
 
         this.logic = hourglassL;
-        this.allClocks = returnList;
+        this.allClocks = clockgroup.returnList();
     }
 
 }

@@ -95,8 +95,8 @@ public class SetupActionListener implements ActionListener {
             clocks.addAClock(minutes, seconds);
         }
 
-        TimersLogic logic = new TimersLogic(clocks.returnList());
-        swingui.addTimeLogicAndClocks(logic, clocks.returnList());
+        TimersLogic logic = new TimersLogic(clocks);
+        swingui.addTimeLogicAndClocks(logic, clocks);
         swingui.createCardTwo();
 
     }
@@ -110,12 +110,11 @@ public class SetupActionListener implements ActionListener {
      */
     public void createHourglassLogic(int minutes, int seconds) {
         clocks = new ClockGroup();
-
         clocks.addAClock(minutes, seconds);
         clocks.addAClock(minutes, seconds);
 
-        HourglassLogic hourglassL = new HourglassLogic(clocks.returnList());
-        swingui.addHourglassLogic(hourglassL, clocks.returnList());
+        HourglassLogic hourglassL = new HourglassLogic(clocks);
+        swingui.addHourglassLogic(hourglassL, clocks);
         swingui.createCardTwo();
     }
 

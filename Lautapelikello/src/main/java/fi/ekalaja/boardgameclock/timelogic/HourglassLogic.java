@@ -5,6 +5,7 @@
  */
 package fi.ekalaja.boardgameclock.timelogic;
 
+import fi.ekalaja.boardgameclock.timers.ClockGroup;
 import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
 
@@ -19,7 +20,6 @@ public class HourglassLogic implements LogicOfTime {
     private ArrayList<SimpleTimer> allclocks;
     private boolean nextClock;
     private int activeClock;
-//    private int listSize;
     private boolean pauseOn;
     private boolean stopEverything;
     private int passiveClock;
@@ -27,13 +27,14 @@ public class HourglassLogic implements LogicOfTime {
     /**
      * HourglassLogic is always given a list of two SimpleTimers.
      *
-     * @param allclocks size is 2.
+     * @param clockgroup 
      */
-    public HourglassLogic(ArrayList<SimpleTimer> allclocks) {
+//    public HourglassLogic(ArrayList<SimpleTimer> allclocks) {
+    public HourglassLogic(ClockGroup clockgroup) {
 
         activeClock = 0;
         passiveClock = 1;
-        this.allclocks = allclocks;
+        allclocks = clockgroup.returnList();
         nextClock = false;
         pauseOn = true;
         this.stopEverything = false;
@@ -106,6 +107,7 @@ public class HourglassLogic implements LogicOfTime {
             this.pauseMode();
         }
     }
+    
 
     /**
      * Returns currently active clock.
@@ -162,6 +164,7 @@ public class HourglassLogic implements LogicOfTime {
     /**
      * This enables changes in the run method so TimeLogic can enter pauseMode.
      */
+    @Override
     public void changePauseOnStatus() {
         if (pauseOn == true) {
             pauseOn = false;

@@ -5,7 +5,6 @@
  */
 package fi.ekalaja.boardgameclock.timers;
 
-
 import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,37 +36,67 @@ public class SimpleTimerTest {
     public void testToStringToTenMinutes() {
         assertEquals("10:00", simpletimer.toString());
     }
-    
+
     @Test
-    public void testReducingAQuarterMinute() {
+    public void testReducingAQuarterMinuteFrom10Min() {
         this.simpletimer.reduceAQuarterMinute();
         assertEquals("09:45", simpletimer.toString());
     }
-    
+
     @Test
-    public void testAddingAQuarterMinute() {
+    public void testReducingAQuarterMinuteManyTimes() {
+        this.simpletimer.reduceAQuarterMinute();
+        this.simpletimer.reduceAQuarterMinute();
+        this.simpletimer.reduceAQuarterMinute();
+        this.simpletimer.reduceAQuarterMinute();
+
+        assertEquals("09:00", simpletimer.toString());
+    }
+
+    @Test
+    public void testAddingAQuarterMinuteFor10Min() {
         this.simpletimer.addAQuarterMinute();
         assertEquals("10:15", simpletimer.toString());
     }
-    
-    
+
+    @Test
+    public void testAddingAQuarterMinuteManyTimes() {
+        this.simpletimer.addAQuarterMinute();
+        this.simpletimer.addAQuarterMinute();
+        this.simpletimer.addAQuarterMinute();
+        this.simpletimer.addAQuarterMinute();
+
+        assertEquals("11:00", simpletimer.toString());
+    }
+
     @Test
     public void testTimerUnticks() {
         this.simpletimer.timerUnticks();
         assertEquals("10:01", simpletimer.toString());
     }
-    
+
+    @Test
+    public void testTimerUnticksForFullMinute() {
+        try {
+            SimpleTimer othertimer = new SimpleTimer(0, 59);
+            othertimer.timerUnticks();
+            assertEquals("01:00", othertimer.toString());
+        } catch (Exception e) {
+            fail("ei nain");
+        }
+    }
+
     @Test
     public void testClockframeSameAfterTimerTicks() {
         this.simpletimer.timerTicks();
-        assertEquals("10:00",this.simpletimer.returnClockNumberFrame().getText());
+        assertEquals("10:00", this.simpletimer.returnClockNumberFrame().getText());
     }
-    
+
     @Test
     public void testClockframeRefreshedAfterTimerTicksAndRefreshes() {
         this.simpletimer.timerTicks();
         this.simpletimer.refreshFrameNumbers();
-        assertEquals("09:59",this.simpletimer.returnClockNumberFrame().getText());
+        assertEquals("09:59", this.simpletimer.returnClockNumberFrame().getText());
     }
 
     @Test
@@ -79,7 +108,7 @@ public class SimpleTimerTest {
             fail("ei nain");
         }
     }
-    
+
     @Test
     public void testToStringForManyMinFewSec() {
         try {
@@ -89,7 +118,7 @@ public class SimpleTimerTest {
             fail("ei nain");
         }
     }
-  
+
     @Test
     public void testToStringForFewMinManySec() {
         try {
@@ -110,8 +139,6 @@ public class SimpleTimerTest {
         }
     }
 
-   
-
     @Test
     public void testOfOneMinutePlusTwoSec() {
         try {
@@ -121,7 +148,7 @@ public class SimpleTimerTest {
         } catch (Exception e) {
         }
     }
-    
+
     @Test
     public void testOtherTimertoStringCorrect() {
         try {
@@ -159,8 +186,6 @@ public class SimpleTimerTest {
         } catch (Exception e) {
         }
     }
-    
-    
 
     @Test
     public void testTimerGetsNegativeValues() {
@@ -188,4 +213,3 @@ public class SimpleTimerTest {
     }
 
 }
-
