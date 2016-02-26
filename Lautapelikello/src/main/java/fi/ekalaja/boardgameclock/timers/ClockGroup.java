@@ -3,9 +3,7 @@
  */
 package fi.ekalaja.boardgameclock.timers;
 
-import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClockGroup {
 

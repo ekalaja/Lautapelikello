@@ -111,18 +111,20 @@ public class TimersLogicTest {
         assertEquals("04:59", this.clockgroup.returnList().get(0).toString());
     }
 
-    // ja hölmöjä testejä 
+// Tests which time-out while checking mutations.
     @Test
     public void testRunAfterOneCycles() {
         this.timelogic.changePauseOnStatus();
         this.timelogic.run();
         assertEquals(0, this.timelogic.getClockInUse());
     }
+
     @Test
     public void testRunAfterOneCycleGoPauseMode() {
         this.timelogic.run();
         assertEquals(0, this.timelogic.getClockInUse());
     }
+
     @Test
     public void testRunAfterOneCycleChangeToNextClock() {
         this.timelogic.setNextClockTrue();
