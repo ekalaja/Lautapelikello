@@ -26,12 +26,9 @@ public class HourglassLogic implements LogicOfTime {
 
     /**
      * HourglassLogic is always given a list of two SimpleTimers.
-     *
-     * @param clockgroup 
+     * @param clockgroup is the class which includes the list of SimpleTimers.
      */
-//    public HourglassLogic(ArrayList<SimpleTimer> allclocks) {
     public HourglassLogic(ClockGroup clockgroup) {
-
         activeClock = 0;
         passiveClock = 1;
         allclocks = clockgroup.returnList();
@@ -59,18 +56,18 @@ public class HourglassLogic implements LogicOfTime {
             }
         }
     }
-    
+
     /**
-     * Here the run loop waits for one second. In reality it takes
-     * a little longer than a second for the loop run through a cycle, but
-     * this is good enough approximation for board game use.
+     * Here the run loop waits for one second. In reality it takes a little
+     * longer than a second for the loop run through a cycle, but this is good
+     * enough approximation for board game use.
      */
     public void sleepForOneSecond() {
         try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("awakened prematurely");
-            }      
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("awakened prematurely");
+        }
     }
 
     /**
@@ -107,7 +104,6 @@ public class HourglassLogic implements LogicOfTime {
             this.pauseMode();
         }
     }
-    
 
     /**
      * Returns currently active clock.

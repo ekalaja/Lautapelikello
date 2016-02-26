@@ -73,7 +73,7 @@ public class SetupActionListener implements ActionListener {
             } catch (Exception e) {
                 System.out.println("Value of minutes must be positive.");
             }
-            if ((minutes > 0 && seconds >= 0)|(minutes >= 0 && seconds > 0)) {
+            if ((minutes > 0 && seconds >= 0) | (minutes >= 0 && seconds > 0)) {
                 this.createHourglassLogic(minutes, seconds);
             }
         }
@@ -106,7 +106,8 @@ public class SetupActionListener implements ActionListener {
      * HourglassLogic which always takes time from another player and gives it's
      * opponent.
      *
-     * @param minutes
+     * @param minutes Value of full minutes used in "hourglass".
+     * @param seconds Value of seconds used in "hourglass".
      */
     public void createHourglassLogic(int minutes, int seconds) {
         clocks = new ClockGroup();
