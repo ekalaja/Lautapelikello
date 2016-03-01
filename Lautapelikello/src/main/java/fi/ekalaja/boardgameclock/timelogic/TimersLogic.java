@@ -42,11 +42,10 @@ public class TimersLogic implements LogicOfTime {
     public void run() {
 
         while (true) {
-
             this.checkPauseOnStatus();           
             this.checkNextClockStatus();
-            this.sleepForOneSecond();
             this.tellTimerToTickAndRefresh();
+            this.sleepForOneSecond();
             if (stopEverything) {
                 break;
             }

@@ -110,6 +110,21 @@ public class TimersLogicTest {
         this.timelogic.tellTimerToTickAndRefresh();
         assertEquals("04:59", this.clockgroup.returnList().get(0).toString());
     }
+    
+    @Test
+    public void testExtraTimeInTimelogicForFiveSec() {
+        TimersLogic logic = new TimersLogic(clockgroup, 5);
+        logic.setNextClockTrue();
+        logic.checkNextClockStatus();
+        assertEquals("00:15", clockgroup.returnList().get(1).toString());
+    }
+    
+    @Test
+    public void testExtraTimelogicCheckNextClockStatusWhileFalse() {
+        TimersLogic logic = new TimersLogic(clockgroup, 5);
+        logic.checkNextClockStatus();
+        assertEquals("00:10", clockgroup.returnList().get(1).toString());
+    }
 
 // These tests time-out while checking mutations.
     @Test

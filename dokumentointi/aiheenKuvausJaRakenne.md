@@ -1,4 +1,4 @@
-**Aihe** Lautapelikello. Toteutetaan mm. lautapeleissä käytettävä kello, jolla voidaan rajoittaa, sekä hallita pelaajien ajankäyttöä. Yksinkertaisimmillaan tämä olisi monen pelaajan shakkikello, mutta lisäominaisuuksia kelloon voidaan lisätä valtavasti. Tulossa olevia ominaisuuksia ovat vuoropohjainen ajanlisäys eli esim. +1 sekuntia pelkästään uuden oman vuoron saamisesta. Tämä estää ajan loppumisen, mutta pakottaa ajankäytön lopuksi minimiin.
+**Aihe** Lautapelikello. Toteutetaan mm. lautapeleissä käytettävä kello, jolla voidaan rajoittaa, sekä hallita pelaajien ajankäyttöä. Yksinkertaisimmillaan tämä olisi monen pelaajan shakkikello, mutta lisäominaisuuksia kelloon voidaan lisätä valtavasti.
 
 **Käyttäjät** Esim. lautapelien pelaajat eli ihmiset, joilla on tarve kontrolloida ryhmän ajankäyttöä
 
@@ -6,6 +6,7 @@
 * Valittavissa on pelaajien lukumäärä
 * ajanottotyyli
 * ajanmäärä
+* Lisäajan määrä jokaiselle vuorolle
 
 **Luokkakaavio**
 SwingUi on käyttöliittymä ja on ensimmäinen käynnistyvä luokka. Käyttöliittymän tärkein paneeli käyttää cardlayouttia ja näkyvä card näyttää aina joko asetukset uuteen luotavaan kelloon tai käytössä oleva kellon.

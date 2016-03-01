@@ -5,7 +5,6 @@
  */
 package fi.ekalaja.boardgameclock.timers;
 
-import fi.ekalaja.boardgameclock.timers.SimpleTimer;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -84,6 +83,26 @@ public class SimpleTimerTest {
         } catch (Exception e) {
             fail("ei nain");
         }
+    }
+    
+    @Test
+    public void testTimerUnticksTenSecondsOnce() {
+        this.simpletimer.timerUnticks(10);
+        assertEquals("10:10", this.simpletimer.toString());
+    }
+    
+    @Test
+    public void testTimerUnticks130seconds() {
+        this.simpletimer.timerUnticks(130);
+        assertEquals("12:10", this.simpletimer.toString());
+    }
+    
+    @Test
+    public void testTimerUnticksTenSecondsSixTimes() {
+        for (int i = 0; i < 6; i++) {
+            this.simpletimer.timerUnticks(10);
+        }
+        assertEquals("11:00", this.simpletimer.toString());
     }
 
     @Test

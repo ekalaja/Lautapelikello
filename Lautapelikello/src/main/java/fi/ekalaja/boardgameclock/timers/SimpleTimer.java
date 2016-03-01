@@ -117,13 +117,18 @@ public class SimpleTimer {
 
     }
 
+    /**
+     * Method is used when "next" button has been pressed in cards2. It gives
+     * additional time for every turn.
+     *
+     * @param turnBonus extra time for the turn in seconds
+     */
     public void timerUnticks(int turnBonus) {
         if ((seconds + turnBonus) > 59) {
             this.minutes += ((seconds + turnBonus) / 60);
             this.seconds = (seconds + turnBonus) % 60;
         } else {
-          seconds += turnBonus;
-          
+            seconds += turnBonus;
         }
     }
 

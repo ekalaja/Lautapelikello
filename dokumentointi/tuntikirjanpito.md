@@ -35,4 +35,6 @@
 
 **26.2.2016** Deadline vaatimuksien toteutus. 2h
 
+**1.3.2016** Vuoropohjainen aikabonus lisätty. Testit luotu ja viimeistelyä. 3,5h
+
 

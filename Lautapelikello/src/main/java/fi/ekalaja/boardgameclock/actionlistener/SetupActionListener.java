@@ -63,12 +63,12 @@ public class SetupActionListener implements ActionListener {
                 seconds = Integer.parseInt(givenSeconds.getText());
                 extraTime = Integer.parseInt(givenExtraTime.getText());
                 if (ae.getSource() == begin) {
-                    if ((value > 0 && minutes > 0 && extraTime >= 0) | (value > 0 && seconds > 0 && extraTime >= 0)) {
+                    if ((value > 0 && minutes >= 0 && seconds >= 0 && extraTime >= 0)) {
                         this.createClocksAndTimeLogic(value, minutes, seconds, extraTime);
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Give positive values for time and players.");
+                System.out.println("Give positive integer values for time and players. Decimal figures are not allowed.");
             }
         } else if (ae.getSource() == hourglass) {
             int minutes = 0;
@@ -77,7 +77,7 @@ public class SetupActionListener implements ActionListener {
                 seconds = Integer.parseInt(givenSeconds.getText());
                 minutes = Integer.parseInt(givenMinutes.getText());
             } catch (Exception e) {
-                System.out.println("Value of minutes must be positive.");
+                System.out.println("Value of minutes must be positive. Decimal figures are not allowed.");
             }
             if ((minutes > 0 && seconds >= 0) | (minutes >= 0 && seconds > 0)) {
                 this.createHourglassLogic(minutes, seconds);
@@ -93,6 +93,7 @@ public class SetupActionListener implements ActionListener {
      * @param arvo number of players
      * @param minutes amount of minutes in the beginning
      * @param seconds amount of seconds in the beginning
+     * @param extraTime additional time for each turn
      */
     public void createClocksAndTimeLogic(int arvo, int minutes, int seconds, int extraTime) {
         clocks = new ClockGroup();
