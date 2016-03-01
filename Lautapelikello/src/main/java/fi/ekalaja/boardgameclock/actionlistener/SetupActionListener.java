@@ -12,7 +12,6 @@ import fi.ekalaja.boardgameclock.timelogic.HourglassLogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class SetupActionListener implements ActionListener {
@@ -21,9 +20,11 @@ public class SetupActionListener implements ActionListener {
     private JTextField numberOfClocks;
     private JTextField givenMinutes;
     private JTextField givenSeconds;
+    private JTextField givenExtraTime;
     private ClockGroup clocks;
     private final SwingUi swingui;
     private final JButton hourglass;
+   
 
     /**
      * This constructor inserts listener for buttons needed at Card1, which is
@@ -34,15 +35,17 @@ public class SetupActionListener implements ActionListener {
      * @param numberOfClocks number of clocks
      * @param givenMinutes inserted minutes
      * @param givenSeconds inserted seconds
+     * @param extraTime Additional time for every turn.
      * @param swingui User interface being used
      */
-    public SetupActionListener(JButton begin, JButton hourglass, JTextField numberOfClocks, JTextField givenMinutes, JTextField givenSeconds, SwingUi swingui) {
+    public SetupActionListener(JButton begin, JButton hourglass, JTextField numberOfClocks, JTextField givenMinutes, JTextField givenSeconds, JTextField extraTime, SwingUi swingui) {
         this.swingui = swingui;
         this.begin = begin;
         this.hourglass = hourglass;
         this.numberOfClocks = numberOfClocks;
         this.givenMinutes = givenMinutes;
         this.givenSeconds = givenSeconds;
+        this.givenExtraTime = extraTime;
     }
 
     @Override
@@ -51,18 +54,21 @@ public class SetupActionListener implements ActionListener {
             int value = 0;
             int minutes = 0;
             int seconds = 0;
+            int extraTime = 0;
 
             try {
+                
                 value = Integer.parseInt(numberOfClocks.getText());
                 minutes = Integer.parseInt(givenMinutes.getText());
                 seconds = Integer.parseInt(givenSeconds.getText());
+                extraTime = Integer.parseInt(givenExtraTime.getText());
                 if (ae.getSource() == begin) {
-                    if ((value > 0 && minutes > 0) | (value > 0 && seconds > 0)) {
-                        this.createClocksAndTimeLogic(value, minutes, seconds);
+                    if ((value > 0 && minutes > 0 && extraTime >= 0) | (value > 0 && seconds > 0 && extraTime >= 0)) {
+                        this.createClocksAndTimeLogic(value, minutes, seconds, extraTime);
                     }
                 }
             } catch (Exception e) {
-                System.out.println("virhe");
+                System.out.println("Give positive values for time and players.");
             }
         } else if (ae.getSource() == hourglass) {
             int minutes = 0;
@@ -88,14 +94,14 @@ public class SetupActionListener implements ActionListener {
      * @param minutes amount of minutes in the beginning
      * @param seconds amount of seconds in the beginning
      */
-    public void createClocksAndTimeLogic(int arvo, int minutes, int seconds) {
+    public void createClocksAndTimeLogic(int arvo, int minutes, int seconds, int extraTime) {
         clocks = new ClockGroup();
 
         for (int i = 0; i < arvo; i++) {
             clocks.addAClock(minutes, seconds);
         }
 
-        TimersLogic logic = new TimersLogic(clocks);
+        TimersLogic logic = new TimersLogic(clocks, extraTime);
         swingui.addTimeLogicAndClocks(logic, clocks);
         swingui.createCardTwo();
 

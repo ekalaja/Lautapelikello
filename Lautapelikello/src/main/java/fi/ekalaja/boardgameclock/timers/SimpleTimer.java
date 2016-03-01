@@ -117,4 +117,14 @@ public class SimpleTimer {
 
     }
 
+    public void timerUnticks(int turnBonus) {
+        if ((seconds + turnBonus) > 59) {
+            this.minutes += ((seconds + turnBonus) / 60);
+            this.seconds = (seconds + turnBonus) % 60;
+        } else {
+          seconds += turnBonus;
+          
+        }
+    }
+
 }

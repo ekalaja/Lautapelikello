@@ -40,8 +40,8 @@ public class SwingUi implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Clocks");
-        frame.setPreferredSize(new Dimension(600, 200));
-        frame.setMinimumSize(new Dimension(400, 200));
+        frame.setPreferredSize(new Dimension(800, 200));
+        frame.setMinimumSize(new Dimension(600, 200));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.createAllComponents(frame.getContentPane());
         frame.setLocationRelativeTo(null);
@@ -71,28 +71,32 @@ public class SwingUi implements Runnable {
 
     public JPanel createCardOne() {
         JPanel card1 = new JPanel(new GridLayout(2, 1));
-        JPanel panelOfTextFields = new JPanel(new GridLayout(2, 3));
+        JPanel panelOfTextFields = new JPanel(new GridLayout(2, 4));
 
         JLabel playerNumberInfo = new JLabel("Number of players:");
         JLabel minutesInfo = new JLabel("Insert minutes");
         JLabel secondsInfo = new JLabel("Insert seconds");
+        JLabel extraTimeInfo = new JLabel("Bonus seconds per turn.");
 
         numberOfClocks = new JTextField("2");
         JTextField givenMinutes = new JTextField("5");
         JTextField givenSeconds = new JTextField("0");
+        JTextField givenExtraTime = new JTextField("0");
 
         JButton begin = new JButton("Begin");
         JButton hourglass = new JButton("Start 1v1 with hourglass");
-        SetupActionListener setupListener = new SetupActionListener(begin, hourglass, numberOfClocks, givenMinutes, givenSeconds, this);
+        SetupActionListener setupListener = new SetupActionListener(begin, hourglass, numberOfClocks, givenMinutes, givenSeconds, givenExtraTime, this);
         begin.addActionListener(setupListener);
         hourglass.addActionListener(setupListener);
 
         panelOfTextFields.add(playerNumberInfo);
         panelOfTextFields.add(minutesInfo);
         panelOfTextFields.add(secondsInfo);
+        panelOfTextFields.add(extraTimeInfo);
         panelOfTextFields.add(numberOfClocks);
         panelOfTextFields.add(givenMinutes);
         panelOfTextFields.add(givenSeconds);
+        panelOfTextFields.add(givenExtraTime);
 
         card1.add(panelOfTextFields);
 

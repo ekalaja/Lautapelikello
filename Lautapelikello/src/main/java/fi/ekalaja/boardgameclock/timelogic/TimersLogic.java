@@ -15,21 +15,22 @@ public class TimersLogic implements LogicOfTime {
     private int clockInUse;
     private boolean pauseOn;
     private boolean stopEverything;
+    private int turnBonus;
 
     /**
      * TimersLogic needs the list of SimpleTimers to function. It takes care of
      * the logic related to the project.
      *
      * @param clockgroup is a class containing list of SimpleTimers.
+     * @param turnBonus is additional seconds given for each turn.
      */
-    public TimersLogic(ClockGroup clockgroup) {
-
+    public TimersLogic(ClockGroup clockgroup, int turnBonus) {
         clockInUse = 0;
         this.allclocks = clockgroup.returnList();
         nextClock = false;
         pauseOn = true;
         this.stopEverything = false;
-
+        this.turnBonus = turnBonus;
     }
 
     /**
@@ -42,11 +43,10 @@ public class TimersLogic implements LogicOfTime {
 
         while (true) {
 
-            this.checkPauseOnStatus();
+            this.checkPauseOnStatus();           
             this.checkNextClockStatus();
-            this.checkNextClockStatus();
-            this.tellTimerToTickAndRefresh();
             this.sleepForOneSecond();
+            this.tellTimerToTickAndRefresh();
             if (stopEverything) {
                 break;
             }
@@ -81,6 +81,8 @@ public class TimersLogic implements LogicOfTime {
     public void checkNextClockStatus() {
         if (nextClock) {
             clockInUse++;
+            this.allclocks.get(clockInUse % allclocks.size()).timerUnticks(turnBonus);
+            this.allclocks.get(clockInUse % allclocks.size()).refreshFrameNumbers();
             this.setNextClockFalse();
         }
     }
@@ -101,7 +103,6 @@ public class TimersLogic implements LogicOfTime {
     public int getClockInUse() {
         return this.clockInUse;
     }
-    
 
     /**
      * changes the status of nextClock boolean to true.

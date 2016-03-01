@@ -28,7 +28,7 @@ public class TimersLogicTest {
         clockgroup = new ClockGroup();
         clockgroup.addAClock(5, 0);
         clockgroup.addAClock(0, 10);
-        timelogic = new TimersLogic(clockgroup);
+        timelogic = new TimersLogic(clockgroup, 0);
         timelogic.activateStopEverything();
 
     }
@@ -111,7 +111,7 @@ public class TimersLogicTest {
         assertEquals("04:59", this.clockgroup.returnList().get(0).toString());
     }
 
-// Tests which time-out while checking mutations.
+// These tests time-out while checking mutations.
     @Test
     public void testRunAfterOneCycles() {
         this.timelogic.changePauseOnStatus();

@@ -99,7 +99,7 @@ public class HourglassLogicTest {
         assertTrue(hl.getPauseOnStatus());
     }
 
-// Tests which time-out while checking mutations.
+// These tests time-out while checking mutations.
     @Test
     public void testRunAfterOneCycles() {
         this.hl.changePauseOnStatus();

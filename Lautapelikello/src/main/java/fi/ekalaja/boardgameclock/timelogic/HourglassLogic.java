@@ -26,6 +26,7 @@ public class HourglassLogic implements LogicOfTime {
 
     /**
      * HourglassLogic is always given a list of two SimpleTimers.
+     *
      * @param clockgroup is the class which includes the list of SimpleTimers.
      */
     public HourglassLogic(ClockGroup clockgroup) {
